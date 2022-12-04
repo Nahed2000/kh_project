@@ -4,10 +4,19 @@ import '../db/controller/ziker_controller.dart';
 import '../model/zekery.dart';
 
 class AzkaryProvider extends ChangeNotifier {
+
+  int sumNum =0;
+
   bool loading = false;
   List<AzkaryModel> azkary = <AzkaryModel>[];
 
   final AzkaryController _azkaryController = AzkaryController();
+
+
+  void sumIncrement(){
+    sumNum++;
+    notifyListeners();
+  }
 
   void read() async {
     loading = true;

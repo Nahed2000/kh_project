@@ -21,6 +21,7 @@ class _myAzkarListState extends State<myAzkarList> {
     Provider.of<AzkaryProvider>(context, listen: false).read();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +52,7 @@ class _myAzkarListState extends State<myAzkarList> {
       ),
       body: Consumer<AzkaryProvider>(
         builder: (context, value, child) {
-         if (value.azkary.isNotEmpty) {
+          if (value.azkary.isNotEmpty) {
             print('we are here');
             return ListView.builder(
               itemBuilder: (context, index) {
@@ -62,8 +63,10 @@ class _myAzkarListState extends State<myAzkarList> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(value.azkary[index].title),
+                      Text(value.azkary[index].title,
+                      ),
                       const Divider(
                         thickness: 1,
                       ),
@@ -101,13 +104,31 @@ class _myAzkarListState extends State<myAzkarList> {
               physics: const BouncingScrollPhysics(),
               itemCount: value.azkary.length,
             );
-          } else {
-            return const Text('No Data',style: TextStyle(color: Colors.white),);
+          }
+          else {
+            return Center(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(25)
+                ),
+                alignment: Alignment.center,
+                  padding: EdgeInsets.all(20),
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.height * 0.32,
+                  child: Text(
+                'لا يوجد أذكار خاصة بعد ,قم بأضافة ذكرك الخاص .. ',
+                style: GoogleFonts.amiri(
+                  fontSize: 22
+                ),
+              )),
+            );
           }
         },
       ),
     );
   }
+
   void deleteZiker(int index) async {
     await Provider.of<AzkaryProvider>(context, listen: false).delete(index);
   }

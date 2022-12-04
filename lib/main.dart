@@ -5,6 +5,7 @@ import 'package:kh_project/db/db_controller.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:kh_project/screen/home_screen.dart';
 import 'package:kh_project/screen/lunch_screen.dart';
+import 'package:kh_project/screen/tsbeh_screen.dart';
 import 'package:provider/provider.dart';
 
 import 'screen/bnv_screen/share_app.dart';
@@ -35,11 +36,11 @@ class MyApp extends StatelessWidget {
           Locale('ar', 'AE'), // English, no country code
         ],
         debugShowCheckedModeBanner: false,
-        // home: ShareAppScreen(),
         initialRoute: '/lunch_screen',
         routes: {
           '/lunch_screen': (context) => LunchScreen(),
-          '/home_screen': (context) => HomeScreen()
+          '/home_screen': (context) => HomeScreen(),
+          '/tsbeh_screen': (context) => TsbehScreen()
         },
       ),
     );

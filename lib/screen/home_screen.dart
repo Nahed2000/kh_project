@@ -23,17 +23,32 @@ class _HomeScreenState extends State<HomeScreen> {
     BNBModel(title: 'الأذكار و الأدعية ', body: AzkarScreen()),
     BNBModel(title: 'صدقة جارية', body: ShareAppScreen()),
   ];
-
+    IconData iconMode = Icons.dark_mode_outlined;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: currentIndex != 1?AppBar(
-        backgroundColor: kPrimary,
-        centerTitle: currentIndex == 3 ? false : true,
-        elevation: 0,
-        title: Text(listScreen[currentIndex].title,style: GoogleFonts.amiri(fontSize: 23),),
-      ):null,
+      appBar: currentIndex != 1
+          ? AppBar(
+              backgroundColor: kPrimary,
+              centerTitle: currentIndex == 3 ? false : true,
+              actions: [
+                IconButton(onPressed: () {
+                  setState(() {
+                    iconMode = iconMode==Icons.sunny?Icons.dark_mode_outlined:Icons.sunny;
+                  });
+                }, icon: Icon(iconMode))
+              ],
+              actionsIconTheme: IconThemeData(color: kWhite),
+              elevation: 1,
+              title: Text(
+                listScreen[currentIndex].title,
+                style: GoogleFonts.amiri(
+                  fontSize: 23,
+                ),
+              ),
+            )
+          : null,
       body: listScreen[currentIndex].body,
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -61,9 +76,9 @@ class _HomeScreenState extends State<HomeScreen> {
               label: currentIndex == 0 ? 'الرئيسية' : '',
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.circle_outlined),
+                icon: const Icon(Icons.motion_photos_on_outlined),
                 label: currentIndex == 1 ? 'اذكاري' : '',
-                activeIcon: const Icon(Icons.circle)),
+                activeIcon: const Icon(Icons.motion_photos_on)),
             BottomNavigationBarItem(
               icon: const Icon(Icons.gradient_sharp),
               label: currentIndex == 2 ? 'الأذكار' : '',

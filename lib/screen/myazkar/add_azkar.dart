@@ -51,17 +51,33 @@ class _AddAkarState extends State<AddAkar> {
       ),
       body: Column(
         children: [
-          TextField(
-            controller: titleController,
-            cursorColor: Colors.teal,
-            cursorRadius: const Radius.circular(15),
-            maxLines: 7,
+          Container(
+            clipBehavior: Clip.antiAlias,
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(25)),
+            child: TextField(
+              controller: titleController,
+              cursorColor: Colors.teal,
+              cursorRadius: const Radius.circular(15),
+              decoration: InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'اضف ذكر',
+                  border: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1)),
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide: BorderSide(color: Colors.white, width: 1)),
+                  hintStyle: GoogleFonts.amiri(fontSize: 22)),
+              maxLines: 7,
+            ),
           ),
-          const SizedBox(height: 20),
           ElevatedButton(
-            onPressed: ()async =>await PerformZeker(),
+            onPressed: () async {
+              await PerformZeker();
+            },
             style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.white,
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))),
             child: Text(
@@ -89,7 +105,7 @@ class _AddAkarState extends State<AddAkar> {
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
-          'الرجاء اضفافة الذكر الذي تريده',
+          'الرجاء اضافة الذكر الذي تريده',
           style: GoogleFonts.amiri(
             color: Colors.white,
             fontSize: 18,
@@ -106,7 +122,9 @@ class _AddAkarState extends State<AddAkar> {
   }
 
   Future<void> createZeker() async {
-    Provider.of<AzkaryProvider>(context,listen: false).create(azkaryModel: azkaryModel);
+    Provider.of<AzkaryProvider>(context, listen: false)
+        .create(azkaryModel: azkaryModel);
+    Navigator.pop(context);
   }
 
   AzkaryModel get azkaryModel {
