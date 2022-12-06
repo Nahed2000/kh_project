@@ -194,15 +194,16 @@ class _HomeAppState extends State<HomeApp> {
                 ),
                 const SizedBox(height: 8),
                 GestureDetector(
-                  onTap: () =>setState(() {
+                  onTap: () => setState(() {
                     elementAyat;
                   }),
                   child: CircleAvatar(
                     radius: 25,
                     backgroundColor: kPrimary,
                     child: Icon(
-                      Icons.next_plan_outlined,
+                      Icons.cached_rounded,
                       color: kWhite,
+                      size: 30,
                     ),
                   ),
                 ),
@@ -265,8 +266,9 @@ class _HomeAppState extends State<HomeApp> {
                         radius: 25,
                         backgroundColor: kPrimary,
                         child: Icon(
-                          Icons.next_plan_outlined,
+                          Icons.cached_rounded,
                           color: kWhite,
+                          size: 30,
                         ),
                       ),
                     ),
@@ -350,49 +352,50 @@ class _HomeAppState extends State<HomeApp> {
 
   dialog(context, name, mean) {
     return showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (ctx) => AlertDialog(
-                title: Text(
-                  name,
-                  style: TextStyle(
-                    color: kPrimary,
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-                content: Text(
-                  mean,
-                  style: TextStyle(
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.right,
-                ),
-                actions: [
-                  TextButton(
-                    onPressed: () =>
-                        getClipboard(context, mean, 'تم نسخ المعنى'),
-                    child: Text(
-                      'نسخ',
-                      style: TextStyle(
-                        color: kPrimary,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                  TextButton(
-                    // color: Colors.teal,
-                    autofocus: true,
-                    onPressed: () => Navigator.of(ctx).pop(),
-                    child: Text(
-                      'إغلاق',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 18,
-                      ),
-                    ),
-                  ),
-                ]));
+      barrierDismissible: false,
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: Text(
+          name,
+          style: TextStyle(
+            color: kPrimary,
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.right,
+        ),
+        content: Text(
+          mean,
+          style: TextStyle(
+            fontSize: 18,
+          ),
+          textAlign: TextAlign.right,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => getClipboard(context, mean, 'تم نسخ المعنى'),
+            child: Text(
+              'نسخ',
+              style: TextStyle(
+                color: kPrimary,
+                fontSize: 18,
+              ),
+            ),
+          ),
+          TextButton(
+            // color: Colors.teal,
+            autofocus: true,
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: Text(
+              'إغلاق',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 18,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

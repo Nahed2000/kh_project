@@ -1,3 +1,4 @@
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
@@ -30,7 +31,11 @@ class _TsbehScreenState extends State<TsbehScreen> {
         backgroundColor: kPrimary,
         leading: const BackButton(),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.audiotrack))
+          IconButton(
+              onPressed: () {
+                AudioPlayer().play(AssetSource('assets/sound_button.mp3'));
+              },
+              icon: const Icon(Icons.volume_up_outlined))
         ],
         iconTheme: IconThemeData(
           color: kWhite,
@@ -121,10 +126,12 @@ class _TsbehScreenState extends State<TsbehScreen> {
                 Container(
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                  border: Border.all(color: Colors.white)
+                      borderRadius: BorderRadius.circular(15),
+                      border: Border.all(color: Colors.white)),
+                  child: Text(
+                    'مجموع التسبيحات ${value.sumNum}',
+                    style: GoogleFonts.amiri(fontSize: 25, color: kWhite),
                   ),
-                  child: Text('مجموع التسبيحات ${value.sumNum}',style: GoogleFonts.amiri(fontSize: 25,color: kWhite),),
                 )
               ],
             ),

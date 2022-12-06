@@ -5,14 +5,15 @@ import 'package:kh_project/model/azkar_list.dart';
 
 import '../myazkar/my_azkar_list.dart';
 
-class AzkaryScreen extends StatefulWidget {
-  const AzkaryScreen({Key? key}) : super(key: key);
+
+class AlhamedList extends StatefulWidget {
+  const AlhamedList({Key? key}) : super(key: key);
 
   @override
-  State<AzkaryScreen> createState() => _AzkaryScreenState();
+  State<AlhamedList> createState() => _AlhamedListState();
 }
 
-class _AzkaryScreenState extends State<AzkaryScreen>
+class _AlhamedListState extends State<AlhamedList>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
@@ -26,7 +27,7 @@ class _AzkaryScreenState extends State<AzkaryScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: kWhite,
       appBar: AppBar(
         backgroundColor: kPrimary,
         bottom: TabBar(
@@ -51,22 +52,42 @@ class _AzkaryScreenState extends State<AzkaryScreen>
       body: TabBarView(
         controller: _tabController,
         children: [
-          ListView.builder(
-            itemBuilder: (context, index) => Card(
-              shape:const  UnderlineInputBorder(
-                borderSide: BorderSide(width: 2)
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Text(
-                  Azkar.randomZikr[index][0],
-                  style: GoogleFonts.amiri(
-                    fontSize: 23
+          ListView.separated(
+            padding: EdgeInsets.symmetric(
+              vertical: 20,
+              horizontal: 20,
+            ),
+            itemCount: 5,
+            itemBuilder: (context, index) => Container(
+              padding: EdgeInsets.symmetric(vertical: 20),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.teal.shade200,
+                    spreadRadius: 3,
+                    blurRadius: 5,
                   ),
-                ),
+                ],
+                color: Colors.teal.shade400,
+                borderRadius: BorderRadius.circular(15),
+              ),
+              child: Column(
+                children: [
+                  Text(
+                    'الحمد لله على ',
+                    style: GoogleFonts.amiri(color: kWhite, fontSize: 30),
+                  ),
+                  Text(
+                    Azkar.listHamed[index],
+                    style:
+                    GoogleFonts.amiri(color: Colors.purple, fontSize: 25),
+                  ),
+                ],
               ),
             ),
-            itemCount: Azkar.randomZikr.length,
+            separatorBuilder: (context, index) =>
+                SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           ),
           const MyAzkarList()
         ],
@@ -74,3 +95,9 @@ class _AzkaryScreenState extends State<AzkaryScreen>
     );
   }
 }
+
+
+
+/*
+
+ */

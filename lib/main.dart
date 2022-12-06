@@ -3,12 +3,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/db/db_controller.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
-import 'package:kh_project/screen/alhamed_screen.dart';
+import 'package:kh_project/screen/alhamed/alhamed_screen.dart';
 import 'package:kh_project/screen/home_screen.dart';
 import 'package:kh_project/screen/lunch_screen.dart';
+import 'package:kh_project/screen/myazkar/my_azkar_list.dart';
 import 'package:kh_project/screen/tsbeh_screen.dart';
 import 'package:provider/provider.dart';
 
+import 'screen/alhamed/alhamed_list.dart';
 import 'screen/bnv_screen/share_app.dart';
 import 'screen/name_of_allah.dart';
 
@@ -38,6 +40,7 @@ class MyApp extends StatelessWidget {
           Locale('ar', 'AE'), // English, no country code
         ],
         debugShowCheckedModeBanner: false,
+        // home: AlhamedList(),
         initialRoute: '/lunch_screen',
         routes: {
           '/lunch_screen': (context) => LunchScreen(),
