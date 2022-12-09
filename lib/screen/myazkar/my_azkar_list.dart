@@ -7,6 +7,7 @@ import 'package:kh_project/screen/myazkar/add_azkar.dart';
 import 'package:provider/provider.dart';
 
 import '../../clipBoard.dart';
+import '../../provider/theme_provider.dart';
 
 class MyAzkarList extends StatefulWidget {
   const MyAzkarList({Key? key}) : super(key: key);

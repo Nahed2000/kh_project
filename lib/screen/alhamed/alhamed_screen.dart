@@ -5,6 +5,7 @@ import 'package:kh_project/constant.dart';
 import 'package:kh_project/model/azkar_list.dart';
 import 'package:kh_project/screen/myazkar/my_azkar_list.dart';
 
+import '../../provider/theme_provider.dart';
 import 'alhamed_list.dart';
 
 class AlhamedScreen extends StatefulWidget {

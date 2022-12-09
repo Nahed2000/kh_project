@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/constant.dart';
 import 'package:kh_project/model/azkar_list.dart';
 
+import '../../provider/theme_provider.dart';
 import '../myazkar/my_azkar_list.dart';
 
 

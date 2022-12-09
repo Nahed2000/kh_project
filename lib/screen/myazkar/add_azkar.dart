@@ -5,6 +5,7 @@ import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/zekery.dart';
+import '../../provider/theme_provider.dart';
 
 class AddAkar extends StatefulWidget {
   const AddAkar({Key? key, this.azkaryModel}) : super(key: key);

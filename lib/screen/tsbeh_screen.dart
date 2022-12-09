@@ -5,6 +5,7 @@ import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:provider/provider.dart';
 
 import '../constant.dart';
+import '../provider/theme_provider.dart';
 
 class TsbehScreen extends StatefulWidget {
   const TsbehScreen({Key? key}) : super(key: key);

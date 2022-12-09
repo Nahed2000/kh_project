@@ -4,6 +4,8 @@ import 'package:kh_project/constant.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:store_redirect/store_redirect.dart';
 
+import '../../provider/theme_provider.dart';
+
 class ShareAppScreen extends StatelessWidget {
   const ShareAppScreen({Key? key}) : super(key: key);
 

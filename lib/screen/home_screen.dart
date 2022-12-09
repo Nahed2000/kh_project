@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/constant.dart';
+import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/bnv_screen/azkar_app.dart';
 import 'package:kh_project/screen/bnv_screen/azkary.dart';
+import 'package:provider/provider.dart';
 
 import '../model/bnb_model.dart';
 import 'bnv_screen/home_app.dart';
@@ -23,7 +26,52 @@ class _HomeScreenState extends State<HomeScreen> {
     BNBModel(title: 'الأذكار و الأدعية ', body: AzkarScreen()),
     BNBModel(title: 'صدقة جارية', body: ShareAppScreen()),
   ];
-    IconData iconMode = Icons.dark_mode_outlined;
+  IconData iconMode = Icons.dark_mode_outlined;
+
+  BannerAd? bannerAd;
+  bool isLoaded = false;
+
+  InterstitialAd? interstitialAd;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    InterstitialAd.load(
+      adUnitId: "ca-app-pub-3940256099942544/1033173712",
+      request: AdRequest(),
+      adLoadCallback: InterstitialAdLoadCallback(
+        onAdLoaded: (ad) {
+          setState(() {
+            isLoaded = true;
+            interstitialAd = ad;
+          });
+          print('interstitial loaded');
+        },
+        onAdFailedToLoad: (error) {
+          print('interstitial Ad failed to load ;');
+        },
+      ),
+    );
+    bannerAd = BannerAd(
+      size: AdSize.banner,
+      adUnitId: "ca-app-pub-3940256099942544/6300978111",
+      listener: BannerAdListener(
+        onAdLoaded: (ad) {
+          setState(() {
+            isLoaded = true;
+          });
+          print('Banner Ad Loaded ');
+        },
+        onAdFailedToLoad: (ad, error) {
+          ad.dispose();
+        },
+      ),
+      request: AdRequest(),
+    );
+    bannerAd!.load();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,13 +81,17 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: kPrimary,
               centerTitle: currentIndex == 3 ? false : true,
               actions: [
-                IconButton(onPressed: () {
-                  setState(() {
-                    iconMode = iconMode==Icons.sunny?Icons.dark_mode_outlined:Icons.sunny;
-                  });
-                }, icon: Icon(iconMode))
+                IconButton(
+                    onPressed: () {
+                      setState(() {
+                        iconMode = iconMode == Icons.sunny
+                            ? Icons.dark_mode_outlined
+                            : Icons.sunny;
+                      });
+                    },
+                    icon: Icon(iconMode))
               ],
-              actionsIconTheme: IconThemeData(color: kWhite),
+              actionsIconTheme: IconThemeData(color: Colors.white),
               elevation: 1,
               title: Text(
                 listScreen[currentIndex].title,
@@ -49,7 +101,20 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             )
           : null,
-      body: listScreen[currentIndex].body,
+      body: Stack(
+        children: [
+          listScreen[currentIndex].body,
+          isLoaded
+              ? Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    height: 50,
+                    child: AdWidget(ad: bannerAd!),
+                  ),
+                )
+              : SizedBox(),
+        ],
+      ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
           boxShadow: [
@@ -65,9 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
           backgroundColor: Colors.teal.shade800,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
-          onTap: (index) => setState(() {
+          onTap: (index) {
+            setState(() {
             currentIndex = index;
-          }),
+          });
+            if(isLoaded){
+              interstitialAd!.show();
+            }
+          },
           unselectedItemColor: Colors.white,
           selectedItemColor: Colors.white,
           items: [
