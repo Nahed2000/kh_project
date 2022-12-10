@@ -14,7 +14,8 @@ class DbController {
 
   DbController._();
 
-   Database get database =>_database;
+  Database get database => _database;
+
   Future<void> initDatabase() async {
     Directory directory = await getApplicationDocumentsDirectory();
     String path = join(directory.path, 'db.sql');
@@ -22,8 +23,12 @@ class DbController {
       path,
       version: 1,
       onOpen: (db) {},
-      onCreate: (db, version) async{
+      onCreate: (db, version) async {
         await db.execute('CREATE TABLE azkary ('
+            'id INTEGER PRIMARY KEY AUTOINCREMENT, '
+            'title TEXT'
+            ')');
+        await db.execute('CREATE TABLE alhamed ('
             'id INTEGER PRIMARY KEY AUTOINCREMENT, '
             'title TEXT'
             ')');

@@ -20,7 +20,7 @@ class NotificationService {
     tzz.initializeTimeZones();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('أذكار المسلم');
+        AndroidInitializationSettings('تطبيق أذكار المسلم');
 
     const IOSInitializationSettings initializationSettingsIOS =  IOSInitializationSettings(
       requestAlertPermission: false,
@@ -75,9 +75,9 @@ class NotificationService {
       Time(hour,minutes),
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'تطبيق أذكار مسلم',
+          'تطبيق أذكار المسلم',
           'تنبيهات',
-          channelDescription: 'تنبيهات خاصة بتطبيق المسلم',
+          channelDescription: 'تطبيق اذكار وادعية وتلاوة وقراءة القرءان الكريم',
           importance: Importance.max,
           priority: Priority.max,
           playSound: true,
@@ -101,9 +101,9 @@ class NotificationService {
       Time(hour, minutes),
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'تطبيق أذكار مسلم',
+          'تطبيق أذكار المسلم',
           'تنبيهات',
-          channelDescription: 'تنبيهات خاصة بتطبيق المسلم',
+          channelDescription: 'تطبيق اذكار وادعية وتلاوة وقراءة القرءان الكريم',
           importance: Importance.max,
           priority: Priority.max,
           playSound: true,
@@ -130,7 +130,7 @@ class NotificationService {
         android: AndroidNotificationDetails(
           'تطبيق أذكار المسلم',
           'تنبيهات',
-          channelDescription: 'تنبيهات خاصة بتطبيق المسلم',
+          channelDescription: 'تطبيق اذكار وادعية وتلاوة وقراءة القرءان الكريم',
           importance: Importance.max,
           priority: Priority.max,
           playSound: true,
@@ -181,9 +181,9 @@ class NotificationService {
       function,
       const NotificationDetails(
         android: AndroidNotificationDetails(
-          'ذكار المسلم',
-          'أذكار المسلم',
-          channelDescription: 'your channel description',
+          'تطبيق أذكار المسلم',
+          'تطبيق أذكار المسلم',
+          channelDescription: 'تطبيق اذكار وادعية وتلاوة وقراءة القرءان الكريم',
         ),
       ),
       androidAllowWhileIdle: true,

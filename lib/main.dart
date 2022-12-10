@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/db/db_controller.dart';
+import 'package:kh_project/provider/alhamed_zeker.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:kh_project/provider/pray_time.dart';
 import 'package:kh_project/provider/theme_provider.dart';
@@ -34,6 +35,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AzkaryProvider>(
             create: (context) => AzkaryProvider()),
+        ChangeNotifierProvider<AlhamedProvider>(
+            create: (context) => AlhamedProvider()),
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider()..changeTheme()),
         ChangeNotifierProvider<PrayerTi>(

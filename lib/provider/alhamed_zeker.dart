@@ -1,42 +1,37 @@
 import 'package:flutter/cupertino.dart';
+import 'package:kh_project/db/controller/alhamed_controller.dart';
 
-import '../db/controller/ziker_controller.dart';
 import '../model/zekery.dart';
 
-class AzkaryProvider extends ChangeNotifier {
-
-  int sumNum =0;
-
-  List<AzkaryModel> azkary = <AzkaryModel>[];
-
-  final AzkaryController _azkaryController = AzkaryController();
+class AlhamedProvider extends ChangeNotifier {
 
 
-  void sumIncrement(){
-    sumNum++;
-    notifyListeners();
-  }
+  List<AlhamedModel> alhamed = <AlhamedModel>[];
+
+  final AlhamedController alhamedController = AlhamedController();
+
+
 
   void read() async {
-    azkary = await _azkaryController.read();
-    print(azkary.length);
+    alhamed = await alhamedController.read();
+    print(alhamed.length);
     notifyListeners();
   }
 
-  Future<bool> create({required AzkaryModel azkaryModel}) async {
-    int newRowId = await _azkaryController.create(azkaryModel);
+  Future<bool> create({required AlhamedModel alhamedModel}) async {
+    int newRowId = await alhamedController.create(alhamedModel);
     if (newRowId != 0) {
-      azkaryModel.id = newRowId;
-      azkary.add(azkaryModel);
+      alhamedModel.id = newRowId;
+      alhamed.add(alhamedModel);
       notifyListeners();
     }
     return newRowId != 0;
   }
 
   Future<bool> delete(/*int id*/ int index) async {
-    bool deleted = await _azkaryController.delete(azkary[index].id);
+    bool deleted = await alhamedController.delete(alhamed[index].id);
     if (deleted) {
-      azkary.removeAt(index);
+      alhamed.removeAt(index);
       notifyListeners();
       //*************
       // azkary.indexWhere((element) => element.id ==id);

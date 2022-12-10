@@ -109,7 +109,7 @@ class _AddAkarState extends State<AddAkar> {
         content: Text(
           'الرجاء اضافة الذكر الذي تريده',
           style: GoogleFonts.amiri(
-            color: Provider.of<ThemeProvider>(context).kWhite,
+            color: Provider.of<ThemeProvider>(context,listen: false).kWhite,
             fontSize: 18,
           ),
         ),
@@ -135,7 +135,4 @@ class _AddAkarState extends State<AddAkar> {
     return azkaryModel;
   }
 
-  void clear() {
-    titleController.text = '';
-  }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/model/azkar_list.dart';
+import 'package:kh_project/screen/alhamed/my_alhamed.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/theme_provider.dart';
@@ -89,7 +90,7 @@ class _AlhamedListState extends State<AlhamedList>
             separatorBuilder: (context, index) =>
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
           ),
-          const MyAzkarList()
+          const MyAlhamedlist()
         ],
       ),
     );

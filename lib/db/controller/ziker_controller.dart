@@ -18,8 +18,6 @@ class AzkaryController implements DbOperation<AzkaryModel> {
 
   @override
   Future<bool> delete(int id) async {
-    // Delete from azkary -> delete all data in table
-    // Delete from azkary where id  = 1
     int countOfDeleteRows =
         await database.delete('azkary', where: 'id = ?', whereArgs: [id]);
     return countOfDeleteRows == 1;
@@ -27,7 +25,6 @@ class AzkaryController implements DbOperation<AzkaryModel> {
 
   @override
   Future<List<AzkaryModel>> read() async {
-    // select * FROM azkary ;
     List<Map<String, dynamic>> rows = await database.query('azkary');
     List<AzkaryModel> azkary = rows
         .map((Map<String, dynamic> row) => AzkaryModel.fromMap(row))

@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kh_project/constant.dart';
-import 'package:kh_project/model/azkar_list.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:kh_project/screen/myazkar/add_azkar.dart';
 import 'package:provider/provider.dart';
