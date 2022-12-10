@@ -22,9 +22,11 @@ class _TsbehScreenState extends State<TsbehScreen> {
     });
   }
 
+  bool isSound = true;
+
   @override
   Widget build(BuildContext context) {
-    var controller = Provider.of<ThemeProvider>(context,listen: false);
+    var controller = Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
       backgroundColor: controller.kPrimary,
       appBar: AppBar(
@@ -33,10 +35,14 @@ class _TsbehScreenState extends State<TsbehScreen> {
         leading: const BackButton(),
         actions: [
           IconButton(
-              onPressed: () {
-                AudioPlayer().play(AssetSource('assets/sound_button.mp3'));
+              onPressed: () async {
+                setState(() {
+                  isSound = !isSound;
+                });
               },
-              icon: const Icon(Icons.volume_up_outlined))
+              icon: isSound
+                  ? const Icon(Icons.volume_up_outlined)
+                  : Icon(Icons.volume_mute))
         ],
         iconTheme: IconThemeData(
           color: controller.kWhite,
@@ -70,12 +76,12 @@ class _TsbehScreenState extends State<TsbehScreen> {
                 ),
                 Text(
                   counterOfTasbeh.toString(),
-                  style:  TextStyle(
+                  style: TextStyle(
                       fontSize: 50,
                       color: controller.kWhite,
                       fontWeight: FontWeight.bold),
                 ),
-                 Text(
+                Text(
                   'عدد التسبيح ',
                   style: TextStyle(
                     fontSize: 40,
@@ -107,20 +113,25 @@ class _TsbehScreenState extends State<TsbehScreen> {
                     ),
                   ),
                 ),
-                CircleAvatar(
-                  radius: 80,
-                  backgroundColor: controller.kWhite,
-                  child: Center(
-                    child: IconButton(
-                        onPressed: () {
-                          increment();
-                          value.sumIncrement();
-                        },
-                        icon: Icon(
-                          Icons.add,
-                          color: controller.kPrimary,
-                          size: 30,
-                        )),
+                GestureDetector(
+                  onTap: () {
+                    increment();
+                    value.sumIncrement();
+                    final player = AudioPlayer();
+                    if (isSound) {
+                      print(isSound);
+                      player.play(AssetSource('sound_button.mp3'));
+                    }
+                  },
+                  child: CircleAvatar(
+                    radius: 80,
+                    backgroundColor: controller.kWhite,
+                    child: Center(
+                        child: Icon(
+                      Icons.add,
+                      color: controller.kPrimary,
+                      size: 30,
+                    )),
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -131,7 +142,8 @@ class _TsbehScreenState extends State<TsbehScreen> {
                       border: Border.all(color: controller.kWhite)),
                   child: Text(
                     'مجموع التسبيحات ${value.sumNum}',
-                    style: GoogleFonts.amiri(fontSize: 25, color: controller.kWhite),
+                    style: GoogleFonts.amiri(
+                        fontSize: 25, color: controller.kWhite),
                   ),
                 )
               ],
