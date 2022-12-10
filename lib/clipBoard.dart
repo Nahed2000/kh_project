@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kh_project/component.dart';
 import 'package:kh_project/constant.dart';
+import 'package:kh_project/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 
 getClipboard(context,title,text){
@@ -13,12 +16,13 @@ getClipboard(context,title,text){
         text,
         textAlign: TextAlign.center,
         style: GoogleFonts.amiri(
+          color: Colors.teal,
             fontSize: 18,
           // color: kPrimary
         ),
       ),
       duration:const Duration(seconds: 1),
-      backgroundColor: Colors.white,
+      backgroundColor:Provider.of<ThemeProvider>(context,listen: false).kBlack,
     ));
 
   });

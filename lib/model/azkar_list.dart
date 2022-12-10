@@ -1298,7 +1298,7 @@ const Dummy_Zikr = [
   Category(id: '11', title: 'أذكار المسجد', color: Colors.cyan),
   Category(id: '12', title: 'أذكار الوضوء', color: Colors.grey),
   Category(id: '13', title: 'أذكار الأذان', color: Colors.lightGreen),
-  Category(id: '14', title: 'دعاء للميت', color: Colors.deepOrangeAccent),
+  // Category(id: '14', title: 'دعاء للميت', color: Colors.deepOrangeAccent),
   Category(id: '15', title: 'أذكار الخلاء', color: Colors.blueGrey),
   Category(id: '16', title: 'أذكار عشوائية', color: Colors.indigoAccent),
   Category(id: '17', title: 'الرقية الشرعية', color: Colors.orange),
