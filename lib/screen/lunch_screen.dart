@@ -38,14 +38,16 @@ class _LunchScreenState extends State<LunchScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const CircleAvatar(
-              backgroundColor: Colors.white,
+              // backgroundColor: Colors.white,
               radius: 70,
+              backgroundImage: AssetImage('assets/image/iconluncer.jpg'),
             ),
-            const Text(
+            SizedBox(height: MediaQuery.of(context).size.height * 0.02),
+            Text(
               'سبح اسم ربك الأعلى ',
-              style: TextStyle(
+              style: GoogleFonts.amiri(
                 color: Colors.white,
-                fontSize: 22,
+                fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
             )

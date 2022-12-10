@@ -26,20 +26,22 @@ class _MyAzkarListState extends State<MyAzkarList> {
 
   @override
   Widget build(BuildContext context) {
+
+    var controller = Provider.of<ThemeProvider>(context,listen: false);
     return Scaffold(
-      backgroundColor:  kPrimary,
+      backgroundColor:  controller.kPrimary,
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: kPrimary,
+        backgroundColor: controller.kPrimary,
         centerTitle: true,
         title: Text(
           'أذكاري الخاصة ',
           style: GoogleFonts.amiri(
             fontSize: 18,
-            color: Colors.white,
+            color: controller.kWhite,
           ),
         ),
-        actionsIconTheme: IconThemeData(color: kWhite),
+        actionsIconTheme: IconThemeData(color: controller.kWhite),
         actions: [
           IconButton(
               onPressed: () {
@@ -60,7 +62,7 @@ class _MyAzkarListState extends State<MyAzkarList> {
                     itemBuilder: (context, index) {
                       return Container(
                         decoration: BoxDecoration(
-                            color: kWhite,
+                            color: controller.kWhite,
                             borderRadius: BorderRadius.circular(20)),
                         padding: const EdgeInsets.all(20),
                         margin: const EdgeInsets.symmetric(
@@ -86,7 +88,7 @@ class _MyAzkarListState extends State<MyAzkarList> {
                                         'تم نسخ الذكر'),
                                     icon: Icon(
                                       Icons.copy,
-                                      color: kPrimary,
+                                      color: controller.kPrimary,
                                       size: 24,
                                     ),
                                   ),
@@ -114,7 +116,7 @@ class _MyAzkarListState extends State<MyAzkarList> {
                   return Center(
                     child: Container(
                         decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: controller.kWhite,
                             borderRadius: BorderRadius.circular(25)),
                         alignment: Alignment.center,
                         padding: EdgeInsets.all(20),

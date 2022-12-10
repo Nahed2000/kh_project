@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
-import 'package:kh_project/constant.dart';
+import 'package:provider/provider.dart';
 
 import '../clipBoard.dart';
 import '../model/azkar_list.dart';
+import '../provider/theme_provider.dart';
 
 class AllahNames extends StatelessWidget {
   const AllahNames({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<ThemeProvider>(context, listen: false);
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: kPrimary,
+          backgroundColor: controller.kPrimary,
           appBar: AppBar(
             title: Text(
               'أسماء الله الحسنى',
               style: TextStyle(),
             ),
             centerTitle: true,
-            backgroundColor: kPrimary,
+            backgroundColor: controller.kPrimary,
             elevation: 0,
           ),
           body: GridView.builder(
@@ -41,7 +43,7 @@ class AllahNames extends StatelessWidget {
                 child: Container(
                   margin: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: controller.kWhite,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
@@ -49,7 +51,7 @@ class AllahNames extends StatelessWidget {
                       name,
                       style: TextStyle(
                         fontSize: 20,
-                        color: kPrimary,
+                        color: controller.kPrimary,
                       ),
                       textDirection: TextDirection.rtl,
                       textAlign: TextAlign.right,
@@ -72,7 +74,7 @@ class AllahNames extends StatelessWidget {
                 title: Text(
                   name,
                   style: TextStyle(
-                    color: kPrimary,
+                    color: Colors.teal,
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                   ),
@@ -92,7 +94,7 @@ class AllahNames extends StatelessWidget {
                     child: Text(
                       'نسخ',
                       style: TextStyle(
-                        color: kPrimary,
+                        color: Colors.teal,
                         fontSize: 18,
                       ),
                     ),

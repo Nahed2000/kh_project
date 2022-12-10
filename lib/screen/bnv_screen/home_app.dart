@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../clipBoard.dart';
@@ -39,7 +40,13 @@ class _HomeAppState extends State<HomeApp> {
         Azkar.prayOfMohammed[random.nextInt(Azkar.prayOfMohammed.length)];
     List elementNameOfAllah =
         Azkar.namesOfAllah[random.nextInt(Azkar.namesOfAllah.length)];
+
     Size size = MediaQuery.of(context).size;
+
+    var controller = Provider.of<ThemeProvider>(context, listen: false);
+    Color v= Provider.of<ThemeProvider>(context) == ThemeData.dark()
+        ? controller.kBlack
+        : controller.kWhite;
     return ListView(
       children: [
         SizedBox(
@@ -53,7 +60,7 @@ class _HomeAppState extends State<HomeApp> {
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                           vertical: 80, horizontal: 20),
-                      color: kPrimary,
+                      color: controller.kPrimary,
                     ),
                   ),
                   const Spacer(),
@@ -66,14 +73,15 @@ class _HomeAppState extends State<HomeApp> {
                     vertical: 30,
                   ),
                   decoration: BoxDecoration(
-                    boxShadow: const [
+                    boxShadow:  [
                       BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 1,
+                        color: Colors.grey,
+                        blurRadius: 5,
+                        spreadRadius: 3
                       )
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: kWhite,
+                    color: v,
                   ),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -82,7 +90,7 @@ class _HomeAppState extends State<HomeApp> {
                       Text(
                         'مرحبا بك',
                         style: GoogleFonts.amiri(
-                          // color: Colors.black,
+                          // color: controller.kWhite,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
@@ -96,7 +104,7 @@ class _HomeAppState extends State<HomeApp> {
                       ),
                       const SizedBox(height: 8),
                       CircleAvatar(
-                        backgroundColor: kPrimary,
+                        backgroundColor: controller.kPrimary,
                         child: IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -108,7 +116,7 @@ class _HomeAppState extends State<HomeApp> {
                           },
                           icon: Icon(
                             Icons.arrow_forward_rounded,
-                            // color:  Colors.white,
+                            color:  controller.kWhite,
                           ),
                         ),
                       ),
@@ -168,13 +176,16 @@ class _HomeAppState extends State<HomeApp> {
           padding: const EdgeInsets.all(30.0),
           child: Container(
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(boxShadow: const [
-              BoxShadow(
-                color: Colors.black26,
-                blurRadius: 3,
-                spreadRadius: 2,
-              )
-            ], borderRadius: BorderRadius.circular(15), color: Colors.white),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 3,
+                    spreadRadius: 2,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(15),
+                color: v),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
@@ -213,10 +224,10 @@ class _HomeAppState extends State<HomeApp> {
                   }),
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: kPrimary,
+                    backgroundColor: controller.kPrimary,
                     child: Icon(
                       Icons.cached_rounded,
-                      color: Colors.white,
+                      color: controller.kWhite,
                       size: 30,
                     ),
                   ),
@@ -230,13 +241,13 @@ class _HomeAppState extends State<HomeApp> {
           child: Container(
             // height: size.height *0.4,
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(boxShadow: const [
+            decoration: BoxDecoration(boxShadow:  [
               BoxShadow(
-                color: Colors.black26,
-                blurRadius: 3,
+                color: Colors.grey,
+                blurRadius: 2,
                 spreadRadius: 2,
               )
-            ], borderRadius: BorderRadius.circular(15), color: Colors.white),
+            ], borderRadius: BorderRadius.circular(15), color: controller.kWhite),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
@@ -260,7 +271,8 @@ class _HomeAppState extends State<HomeApp> {
                 SizedBox(
                   height: size.height * 0.15,
                   child: DefaultTextStyle(
-                    style: GoogleFonts.amiri(fontSize: 70.0, color: kBlack),
+                    style: GoogleFonts.amiri(
+                        fontSize: 70.0, color: controller.kBlack),
                     child: AnimatedTextKit(
                       animatedTexts: [
                         ScaleAnimatedText(
@@ -283,10 +295,10 @@ class _HomeAppState extends State<HomeApp> {
                       }),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: kPrimary,
+                        backgroundColor: controller.kPrimary,
                         child: Icon(
                           Icons.cached_rounded,
-                          color: Colors.white,
+                          color: controller.kWhite,
                           size: 30,
                         ),
                       ),
@@ -296,10 +308,10 @@ class _HomeAppState extends State<HomeApp> {
                           elementNameOfAllah[1]),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: kPrimary,
+                        backgroundColor: controller.kPrimary,
                         child: Icon(
                           Icons.arrow_forward,
-                          color: Colors.white,
+                          color: controller.kWhite,
                         ),
                       ),
                     ),
@@ -319,15 +331,15 @@ class _HomeAppState extends State<HomeApp> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    boxShadow: const [
+                    boxShadow:  [
                       BoxShadow(
-                        color: Colors.black26,
+                        color: Colors.grey,
                         blurRadius: 3,
                         spreadRadius: 2,
                       )
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.white),
+                    color: controller.kWhite),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.min,
@@ -364,10 +376,10 @@ class _HomeAppState extends State<HomeApp> {
                       }),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: kPrimary,
+                        backgroundColor: controller.kPrimary,
                         child: Icon(
                           Icons.cached_rounded,
-                          color: Colors.white,
+                          color: controller.kWhite,
                           size: 30,
                         ),
                       ),
@@ -379,11 +391,16 @@ class _HomeAppState extends State<HomeApp> {
             Align(
               alignment: Alignment.topCenter,
               child: CircleAvatar(
+                backgroundColor: controller.kPrimary,
                 radius: size.height * 0.05,
                 child: CircleAvatar(
                   radius: size.height * 0.04,
-                  backgroundColor: kWhite,
-                  child: Icon(Icons.currency_pound_rounded,size: size.height* 0.05,),
+                  backgroundColor: controller.kWhite,
+                  child: Icon(
+                    Icons.currency_pound_rounded,
+                    size: size.height * 0.05,
+                    color: controller.kPrimary,
+                  ),
                 ),
               ),
             )
@@ -403,16 +420,16 @@ class _HomeAppState extends State<HomeApp> {
               vertical: 30,
             ),
             decoration: BoxDecoration(
-              boxShadow: const [
+              boxShadow:  [
                 BoxShadow(
-                  color: Colors.black,
+                  color: controller.kBlack,
                   blurRadius: 1,
                 ),
               ],
               borderRadius: BorderRadius.circular(
                 15,
               ),
-              color: Colors.white,
+              color: controller.kWhite,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -437,10 +454,10 @@ class _HomeAppState extends State<HomeApp> {
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/alhamed_screen'),
                   child: CircleAvatar(
-                    backgroundColor: kPrimary,
+                    backgroundColor: controller.kPrimary,
                     child: Icon(
                       Icons.arrow_forward_rounded,
-                      color: Colors.white,
+                      color: controller.kWhite,
                     ),
                   ),
                 ),
@@ -472,7 +489,7 @@ class _HomeAppState extends State<HomeApp> {
         title: Text(
           name,
           style: TextStyle(
-            color: kPrimary,
+            color: Colors.teal,
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
@@ -491,7 +508,7 @@ class _HomeAppState extends State<HomeApp> {
             child: Text(
               'نسخ',
               style: TextStyle(
-                color: kPrimary,
+                color: Colors.teal,
                 fontSize: 18,
               ),
             ),

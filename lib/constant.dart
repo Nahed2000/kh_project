@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
- Color kPrimary = Colors.teal;
+ // Color kPrimary = Colors.teal;
 

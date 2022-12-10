@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kh_project">
    <application
-        android:label="kh_project"
+        android:label="أذكار المسلم"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
        <meta-data

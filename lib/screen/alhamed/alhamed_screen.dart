@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/constant.dart';
 import 'package:kh_project/model/azkar_list.dart';
 import 'package:kh_project/screen/myazkar/my_azkar_list.dart';
+import 'package:provider/provider.dart';
 
 import '../../provider/theme_provider.dart';
 import 'alhamed_list.dart';
@@ -18,8 +19,13 @@ class AlhamedScreen extends StatefulWidget {
 class _AlhamedScreenState extends State<AlhamedScreen> {
   bool finish = false;
 
+
+
   @override
   Widget build(BuildContext context) {
+
+    var controller = Provider.of<ThemeProvider>(context,listen: false);
+
     return Scaffold(
       backgroundColor: Colors.teal.shade900,
       appBar: AppBar(
@@ -32,7 +38,7 @@ class _AlhamedScreenState extends State<AlhamedScreen> {
           children: [
             Text(
               'الحمدلله على ',
-              style: GoogleFonts.amiri(fontSize: 70.0, color: Colors.white),
+              style: GoogleFonts.amiri(fontSize: 70.0, color: controller.kWhite),
             ),
             DefaultTextStyle(
               style: GoogleFonts.amiri(fontSize: 70.0, color: Colors.yellow),
@@ -70,10 +76,10 @@ class _AlhamedScreenState extends State<AlhamedScreen> {
                         },
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundColor: kWhite,
+                          backgroundColor: controller.kWhite,
                           child: Icon(
                             Icons.add,
-                            color: kPrimary,
+                            color: controller.kPrimary,
                             size: 38,
                           ),
                         ),
@@ -81,7 +87,7 @@ class _AlhamedScreenState extends State<AlhamedScreen> {
                       Text(
                         'اضافة و تعديل',
                         style: GoogleFonts.amiri(
-                          color: Colors.white,
+                          color: controller.kWhite,
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),
@@ -98,10 +104,10 @@ class _AlhamedScreenState extends State<AlhamedScreen> {
                         },
                         child: CircleAvatar(
                           radius: 30,
-                          backgroundColor: kWhite,
+                          backgroundColor: controller.kWhite,
                           child: Icon(
                             Icons.cancel_outlined,
-                            color: kPrimary,
+                            color: controller.kPrimary,
                             size: 38,
                           ),
                         ),
@@ -109,7 +115,7 @@ class _AlhamedScreenState extends State<AlhamedScreen> {
                       Text(
                         'خروج',
                         style: GoogleFonts.amiri(
-                          color: Colors.white,
+                          color: controller.kWhite,
                           fontSize: 23,
                           fontWeight: FontWeight.bold,
                         ),

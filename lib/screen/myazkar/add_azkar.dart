@@ -35,18 +35,19 @@ class _AddAkarState extends State<AddAkar> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<ThemeProvider>(context,listen: false);
     return Scaffold(
-      backgroundColor: kPrimary,
+      backgroundColor: controller.kPrimary,
       appBar: AppBar(
-        backgroundColor: kPrimary,
+        backgroundColor: controller.kPrimary,
         leading: BackButton(
-          color: kPrimary,
+          color: controller.kPrimary,
         ),
         centerTitle: true,
         title: Text(
           'دعاء جديد ',
           style: GoogleFonts.amiri(
-            color: kWhite,
+            color: controller.kWhite,
           ),
         ),
       ),
@@ -62,12 +63,12 @@ class _AddAkarState extends State<AddAkar> {
               cursorRadius: const Radius.circular(15),
               decoration: InputDecoration(
                   filled: true,
-                  fillColor: Colors.white,
+                  fillColor: controller.kWhite,
                   hintText: 'اضف ذكر',
-                  border: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 1)),
-                  focusedBorder: const UnderlineInputBorder(
-                      borderSide: BorderSide(color: Colors.white, width: 1)),
+                  border:  UnderlineInputBorder(
+                      borderSide: BorderSide(color: controller.kWhite, width: 1)),
+                  focusedBorder:  UnderlineInputBorder(
+                      borderSide: BorderSide(color: controller.kWhite, width: 1)),
                   hintStyle: GoogleFonts.amiri(fontSize: 22)),
               maxLines: 7,
             ),
@@ -77,7 +78,7 @@ class _AddAkarState extends State<AddAkar> {
               await PerformZeker();
             },
             style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.white,
+                backgroundColor: controller.kWhite,
                 padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15))),
@@ -108,7 +109,7 @@ class _AddAkarState extends State<AddAkar> {
         content: Text(
           'الرجاء اضافة الذكر الذي تريده',
           style: GoogleFonts.amiri(
-            color: Colors.white,
+            color: Provider.of<ThemeProvider>(context).kWhite,
             fontSize: 18,
           ),
         ),

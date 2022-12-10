@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/constant.dart';
 import 'package:kh_project/model/azkar_list.dart';
+import 'package:kh_project/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../myazkar/my_azkar_list.dart';
 
@@ -25,10 +27,11 @@ class _AzkaryScreenState extends State<AzkaryScreen>
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<ThemeProvider>(context,listen: false);
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: controller.kWhite,
       appBar: AppBar(
-        backgroundColor: kPrimary,
+        backgroundColor: controller.kPrimary,
         bottom: TabBar(
           onTap: (int value) {
             setState(() {
@@ -39,12 +42,12 @@ class _AzkaryScreenState extends State<AzkaryScreen>
           indicatorWeight: 5,
           indicatorColor: Colors.orange,
           // indicatorSize: TabBarIndicatorSize.label,
-          labelColor: Colors.black,
-          unselectedLabelColor: Colors.black45,
+          labelColor: controller.kBlack,
+          // unselectedLabelColor: controller.Black45,
           controller: _tabController,
           tabs:  [
-            Tab(child: Text('أذكار التطبيق ',style: GoogleFonts.amiri(fontSize: 18,color: Colors.white),),),
-            Tab(child: Text('أذكاري ',style: GoogleFonts.amiri(fontSize: 18,color: Colors.white),),),
+            Tab(child: Text('أذكار التطبيق ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kWhite),),),
+            Tab(child: Text('أذكاري ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kWhite),),),
           ],
         ),
       ),

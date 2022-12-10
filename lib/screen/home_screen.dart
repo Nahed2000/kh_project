@@ -21,10 +21,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int currentIndex = 0;
   List<BNBModel> listScreen = <BNBModel>[
-    BNBModel(title: '', body: HomeApp()),
-    BNBModel(title: '', body: AzkaryScreen()),
-    BNBModel(title: 'الأذكار و الأدعية ', body: AzkarScreen()),
-    BNBModel(title: 'صدقة جارية', body: ShareAppScreen()),
+    BNBModel(title: '', body: const HomeApp()),
+    BNBModel(title: '', body: const AzkaryScreen()),
+    BNBModel(title: 'الأذكار و الأدعية ', body: const AzkarScreen()),
+    BNBModel(title: 'صدقة جارية', body: const ShareAppScreen()),
   ];
   IconData iconMode = Icons.dark_mode_outlined;
 
@@ -39,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     super.didChangeDependencies();
     InterstitialAd.load(
       adUnitId: "ca-app-pub-3940256099942544/1033173712",
-      request: AdRequest(),
+      request: const AdRequest(),
       adLoadCallback: InterstitialAdLoadCallback(
         onAdLoaded: (ad) {
           setState(() {
@@ -67,18 +67,22 @@ class _HomeScreenState extends State<HomeScreen> {
           ad.dispose();
         },
       ),
-      request: AdRequest(),
+      request: const AdRequest(),
     );
     bannerAd!.load();
   }
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<ThemeProvider>(context);
+    Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
+        ? controller.kBlack
+        : controller.kWhite;
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor:v,
       appBar: currentIndex != 1
           ? AppBar(
-              backgroundColor: kPrimary,
+              backgroundColor: controller.kPrimary,
               centerTitle: currentIndex == 3 ? false : true,
               actions: [
                 IconButton(
@@ -88,15 +92,17 @@ class _HomeScreenState extends State<HomeScreen> {
                             ? Icons.dark_mode_outlined
                             : Icons.sunny;
                       });
+                      controller.changeTheme();
                     },
-                    icon: Icon(iconMode))
+                    icon: Icon(iconMode,color: v))
               ],
-              actionsIconTheme: IconThemeData(color: Colors.white),
+              actionsIconTheme:IconThemeData(color: controller.kWhite),
               elevation: 1,
               title: Text(
                 listScreen[currentIndex].title,
                 style: GoogleFonts.amiri(
                   fontSize: 23,
+                  color: v
                 ),
               ),
             )
@@ -112,7 +118,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: AdWidget(ad: bannerAd!),
                   ),
                 )
-              : SizedBox(),
+              : const SizedBox(),
         ],
       ),
       bottomNavigationBar: Container(
@@ -132,14 +138,14 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: currentIndex,
           onTap: (index) {
             setState(() {
-            currentIndex = index;
-          });
-            if(isLoaded){
+              currentIndex = index;
+            });
+            if (isLoaded) {
               interstitialAd!.show();
             }
           },
-          unselectedItemColor: Colors.white,
-          selectedItemColor: Colors.white,
+          unselectedItemColor: controller.kWhite,
+          selectedItemColor: controller.kWhite,
           items: [
             BottomNavigationBarItem(
               icon: const Icon(Icons.home_filled),

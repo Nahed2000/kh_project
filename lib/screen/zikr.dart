@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:kh_project/constant.dart';
+import 'package:kh_project/provider/theme_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../clipBoard.dart';
 import '../model/azkar_list.dart';
@@ -58,18 +60,22 @@ class _ZikrState extends State<Zikr> {
     double screenWidth = MediaQuery.of(context).size.width;
     double screenHeight = MediaQuery.of(context).size.height;
 
+    var controller = Provider.of<ThemeProvider>(context ,listen: false);
+    Color v= Provider.of<ThemeProvider>(context) == ThemeData.dark()
+        ? controller.kBlack
+        : controller.kWhite;
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: kPrimary,
+          backgroundColor: controller.kPrimary,
           appBar: AppBar(
-            backgroundColor: kPrimary,
+            backgroundColor: controller.kPrimary,
             centerTitle: true,
             title: Text(
               widget.title,
               style: GoogleFonts.amiri(
-                color: Colors.white,
+                color: controller.kWhite,
                 fontSize: 20,
                 fontWeight: FontWeight.w600,
               ),
@@ -87,7 +93,7 @@ class _ZikrState extends State<Zikr> {
                 ),
                 child: Container(
                   decoration: BoxDecoration(
-                    color: zikr![index] == 0 ? Colors.white38 : Colors.white,
+                    color: v,
                     borderRadius: BorderRadius.circular(15),
                   ),
                   margin:
@@ -95,7 +101,7 @@ class _ZikrState extends State<Zikr> {
                   padding: const EdgeInsets.only(
                       top: 18, bottom: 18.0, left: 12, right: 12),
                   child: MaterialButton(
-                    splashColor: kPrimary,
+                    splashColor: controller.kPrimary,
                     onPressed: () {
                       if (zikr![index] > 0) {
                         setState(() {
@@ -139,7 +145,7 @@ class _ZikrState extends State<Zikr> {
                                     foundZikr![index][0], 'تم نسخ الذكر'),
                                 icon: Icon(
                                   Icons.copy,
-                                  color: kPrimary,
+                                  // color: kPrimary,
                                   size: 24,
                                 ),
                               ),
@@ -154,7 +160,7 @@ class _ZikrState extends State<Zikr> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 decoration: BoxDecoration(
-                                  color: kPrimary,
+                                  // color: kPrimary,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -162,7 +168,7 @@ class _ZikrState extends State<Zikr> {
                                   child: Text(
                                     '${index + 1}',
                                     style:
-                                        GoogleFonts.amiri(color: Colors.white),
+                                        GoogleFonts.amiri(color: controller.kWhite),
                                   ),
                                 ),
                               ),
@@ -177,7 +183,7 @@ class _ZikrState extends State<Zikr> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 4),
                                 decoration: BoxDecoration(
-                                  color: kPrimary,
+                                  // color: kPrimary,
                                   shape: BoxShape.rectangle,
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -186,24 +192,24 @@ class _ZikrState extends State<Zikr> {
                                         child: Text(
                                         'تم',
                                         style: GoogleFonts.amiri(
-                                            color: Colors.white, fontSize: 18),
+                                            color: controller.kWhite, fontSize: 18),
                                       ))
                                     : Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         children: [
-                                          //Icon(Icons.repeat,color: Colors.white,),
+                                          //Icon(Icons.repeat,color: ,),
                                           FittedBox(
                                               child: Text(
                                             'عدد التكرار',
                                             style: GoogleFonts.amiri(
-                                                color: Colors.white),
+                                                color: controller.kWhite),
                                           )),
                                           FittedBox(
                                               child: Text(
                                             zikr![index].toString(),
                                             style: GoogleFonts.amiri(
-                                                color: Colors.white),
+                                                color: controller.kWhite),
                                           )),
                                         ],
                                       ),

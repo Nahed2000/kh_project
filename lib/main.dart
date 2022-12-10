@@ -3,6 +3,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/db/db_controller.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
+import 'package:kh_project/provider/pray_time.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/alhamed/alhamed_screen.dart';
 import 'package:kh_project/screen/home_screen.dart';
@@ -16,12 +17,17 @@ import 'storge/pref_controller.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DbController().initDatabase();
+  await CacheHelper.init();
   MobileAds.instance.initialize();
-  runApp(const MyApp());
+  bool? notificationActive = CacheHelper.getData(key: 'notificationActive');
+  runApp(MyApp(notificationActive: notificationActive));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({super.key, required this.notificationActive});
+
+  final bool? notificationActive;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -29,7 +35,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<AzkaryProvider>(
             create: (context) => AzkaryProvider()),
         ChangeNotifierProvider<ThemeProvider>(
-            create: (context) => ThemeProvider()),
+            create: (context) => ThemeProvider()..changeTheme()),
+        ChangeNotifierProvider<PrayerTi>(
+          create: (context) => PrayerTi()
+            ..getDay()
+            ..notStatus(fromShared: notificationActive),
+        ),
       ],
       builder: (context, child) => const MyAppMaterial(),
     );
@@ -42,11 +53,7 @@ class MyAppMaterial extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
-      ),
-      title: 'Localizations Sample App',
-      color: Colors.teal,
+      theme: Provider.of<ThemeProvider>(context).theme,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

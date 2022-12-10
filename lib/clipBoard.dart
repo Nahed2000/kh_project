@@ -14,7 +14,7 @@ getClipboard(context,title,text){
         textAlign: TextAlign.center,
         style: GoogleFonts.amiri(
             fontSize: 18,
-          color: kPrimary
+          // color: kPrimary
         ),
       ),
       duration:const Duration(seconds: 1),
