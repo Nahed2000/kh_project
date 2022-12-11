@@ -13,26 +13,26 @@ import 'model/azkar_list.dart';
 import 'service/notificationservice.dart';
 
 Color co = const Color.fromRGBO(18, 140, 126, 1);
-String fontFamily = 'Almarai';
 
 int suarhSize = 16;
 
 late Position position;
-
 getPosition() async {
-  position = await Geolocator.getCurrentPosition(
-      desiredAccuracy: LocationAccuracy.high);
+  LocationPermission permission;
+  permission = await Geolocator.requestPermission();
+    position = await Geolocator.getCurrentPosition();
   initPray();
   if (kDebugMode) {
     print('longitude = ' + position.longitude.toString());
     print('latitude = ' + position.latitude.toString()); //Output: 29.6593457
   }
 
-  // long = position.longitude;
-  //  lat = position.latitude;
-
-  // log( 'longitude = ' + long.toString()); //Output: 80.24599079
-  // log( 'latitude = ' + lat.toString());
+  // double long = position.longitude;
+  // double lat = position.latitude;
+  // print('longitude is  : $long');
+  // print('latiude is  : $lat');
+  // log('longitude =   long.toString()); //Output: 80.24599079
+  // print(log('latitude = ' + lat.toString());
 }
 
 var time = DateTime.now();
@@ -202,20 +202,21 @@ var countdown;
 late Coordinates myCoordinates;
 
 initPray() {
-  //  qibla = Qibla(Coordinates(position.longitude, position.latitude));
-  //qibla = Qibla(Coordinates(31.5, 34.46667));
+  // qibla = Qibla(Coordinates(position.longitude, position.latitude));
   // qibla = Qibla(Coordinates(31.5, 34.46667));
-  //  myCoordinates = Coordinates(position.longitude, position.latitude);
-  myCoordinates = Coordinates(31.5, 34.46667);
+   myCoordinates = Coordinates(position.longitude, position.latitude);
+   print(myCoordinates);
+  // myCoordinates = Coordinates(31.4, 34.46667);
 //myCoordinates = Coordinates(31.898043, 35.204269);
 
   // Replace with your own location lat, lng.
   final params = CalculationMethod.egyptian.getParameters();
 
   params.madhab = Madhab.shafi;
-  prayerTimes = PrayerTimes.today(myCoordinates, params);
+  prayerTimes = PrayerTimes.today(myCoordinates,params);
   // prayerTimes = getSettings(myCoordinates, params);
-  //qib = qibla.direction;
+  //qib = qibla.direction;/
+
   current = prayerTimes.currentPrayer();
   next = prayerTimes.nextPrayer();
   countdown = prayerTimes.timeForPrayer(next);
@@ -230,7 +231,7 @@ FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
 
 callbackDispatcher() {
   // initial notifications
-  const initializationSettingsAndroid = AndroidInitializationSettings('muslim');
+  const initializationSettingsAndroid = AndroidInitializationSettings('iconluncer');
   const initializationSettingsIOS = IOSInitializationSettings();
 
   const initializationSettings = InitializationSettings(

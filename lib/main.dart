@@ -11,7 +11,9 @@ import 'package:kh_project/screen/home_screen.dart';
 import 'package:kh_project/screen/lunch_screen.dart';
 import 'package:kh_project/screen/tsbeh_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
 
+import 'component.dart';
 import 'screen/name_of_allah.dart';
 import 'storge/pref_controller.dart';
 
@@ -19,7 +21,10 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DbController().initDatabase();
   await CacheHelper.init();
+  getPosition();
+  // initPray();
   MobileAds.instance.initialize();
+  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
   bool? notificationActive = CacheHelper.getData(key: 'notificationActive');
   runApp(MyApp(notificationActive: notificationActive));
 }

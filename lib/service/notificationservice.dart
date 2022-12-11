@@ -20,7 +20,7 @@ class NotificationService {
     tzz.initializeTimeZones();
 
     const AndroidInitializationSettings initializationSettingsAndroid =
-        AndroidInitializationSettings('تطبيق أذكار المسلم');
+        AndroidInitializationSettings('iconluncer');
 
     const IOSInitializationSettings initializationSettingsIOS =  IOSInitializationSettings(
       requestAlertPermission: false,

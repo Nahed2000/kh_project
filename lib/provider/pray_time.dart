@@ -37,7 +37,7 @@ class PrayerTi with ChangeNotifier {
 
 
     // Replace with your own location lat, lng.
-    final params = CalculationMethod.egyptian.getParameters();
+    // final params = CalculationMethod.egyptian.getParameters();
 
     params.madhab = Madhab.shafi;
     prayerTimes = PrayerTimes.today(myCoordinates, params);

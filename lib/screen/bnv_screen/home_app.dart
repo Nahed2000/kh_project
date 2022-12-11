@@ -10,6 +10,7 @@ import '../../clipBoard.dart';
 import '../../model/azkar_list.dart';
 import '../../provider/theme_provider.dart';
 import '../../widget/custom_button.dart';
+import '../pray_time.dart';
 import '../zikr.dart';
 
 class HomeApp extends StatefulWidget {
@@ -163,7 +164,7 @@ class _HomeAppState extends State<HomeApp> {
               onPress: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Zikr(title: 'أذكار المساء'),
+                    builder: (context) => PrayTime(),
                   )),
             ),
           ],
