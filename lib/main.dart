@@ -12,7 +12,6 @@ import 'package:kh_project/screen/lunch_screen.dart';
 import 'package:kh_project/screen/tsbeh_screen.dart';
 import 'package:provider/provider.dart';
 
-import 'screen/count_ziker.dart';
 import 'screen/name_of_allah.dart';
 import 'storge/pref_controller.dart';
 

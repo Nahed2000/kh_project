@@ -83,7 +83,7 @@ class CountOfZiker extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: Colors.grey,
                       border: Border.all(color: Colors.grey)),
-                  child: Text(zikerAdd.toString()),
+                  child: Text(shearedAdd.toString()),
                 ),
                 Spacer()
               ],

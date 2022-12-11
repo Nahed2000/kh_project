@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../clipBoard.dart';
-import '../../constant.dart';
 import '../../model/azkar_list.dart';
 import '../../provider/theme_provider.dart';
 import '../../widget/custom_button.dart';

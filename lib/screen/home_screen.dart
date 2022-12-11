@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:kh_project/constant.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/bnv_screen/azkar_app.dart';
 import 'package:kh_project/screen/bnv_screen/azkary.dart';

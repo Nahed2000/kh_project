@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kh_project/component.dart';
-import 'package:kh_project/constant.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/count_ziker.dart';
 import 'package:provider/provider.dart';
 
 import '../clipBoard.dart';
 import '../model/azkar_list.dart';
+import '../storge/pref_controller.dart';
 
 class Zikr extends StatefulWidget {
   final String title;
@@ -49,6 +48,7 @@ class _ZikrState extends State<Zikr> {
   List? zikr;
   List? foundZikr;
   int countOfZiker = 0;
+  int counter = 0;
 
   @override
   void initState() {
@@ -87,7 +87,7 @@ class _ZikrState extends State<Zikr> {
                           builder: (context) => CountOfZiker(
                             title: widget.title,
                             zikerAdd: countOfZiker,
-                            shearedAdd: 0,
+                            shearedAdd: counter,
                           ),
                         ));
                   },
@@ -130,7 +130,6 @@ class _ZikrState extends State<Zikr> {
                         setState(() {
                           zikr![index] = zikr![index] - 1;
                           countOfZiker++;
-                          print('count  = $countOfZiker');
                         });
                       }
                     },
