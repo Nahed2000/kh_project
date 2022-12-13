@@ -93,11 +93,9 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     var controller = Provider.of<ThemeProvider>(context);
-    Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
-        ? controller.kBlack
-        : controller.kWhite;
+
     return Scaffold(
-      backgroundColor: v,
+      backgroundColor: controller.kWhite,
       appBar: currentIndex != 1
           ? AppBar(
               backgroundColor: controller.kPrimary,
@@ -112,13 +110,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                       controller.changeTheme();
                     },
-                    icon: Icon(iconMode, color: v))
+                    icon: Icon(iconMode, color: controller.kWhite))
               ],
               actionsIconTheme: IconThemeData(color: controller.kWhite),
               elevation: 0,
               title: Text(
                 listScreen[currentIndex].title,
-                style: GoogleFonts.amiri(fontSize: 23, color: v),
+                style: GoogleFonts.amiri(fontSize: 23, color: controller.kWhite),
               ),
             )
           : null,
