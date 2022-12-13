@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:workmanager/workmanager.dart';
+
+import '../component.dart';
 
 class LunchScreen extends StatefulWidget {
   const LunchScreen({Key? key}) : super(key: key);
@@ -12,6 +15,10 @@ class _LunchScreenState extends State<LunchScreen> {
   @override
   void initState() {
     // TODO: implement initState
+
+
+    Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
+    getZikrStart();
     Future.delayed(const Duration(seconds: 2), () {
       Navigator.pushReplacementNamed(context, '/home_screen');
     });

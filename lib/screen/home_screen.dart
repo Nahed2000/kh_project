@@ -4,11 +4,15 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/bnv_screen/azkar_app.dart';
 import 'package:kh_project/screen/bnv_screen/azkary.dart';
+import 'package:kh_project/screen/pray_time.dart';
 import 'package:provider/provider.dart';
+import 'package:workmanager/workmanager.dart';
 
+import '../component.dart';
 import '../model/bnb_model.dart';
 import 'bnv_screen/home_app.dart';
 import 'bnv_screen/share_app.dart';
+import 'quran/surah.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -18,10 +22,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 0;
+  int currentIndex = 2;
   List<BNBModel> listScreen = <BNBModel>[
-    BNBModel(title: '', body: const HomeApp()),
+    BNBModel(title: 'القرآن الكريم', body: AllSurah()),
     BNBModel(title: '', body: const AzkaryScreen()),
+    BNBModel(title: '', body: const HomeApp()),
     BNBModel(title: 'الأذكار و الأدعية ', body: const AzkarScreen()),
     BNBModel(title: 'صدقة جارية', body: const ShareAppScreen()),
   ];
@@ -31,6 +36,20 @@ class _HomeScreenState extends State<HomeScreen> {
   bool isLoaded = false;
 
   InterstitialAd? interstitialAd;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    getRandomZikr();
+
+    Workmanager().registerPeriodicTask(
+      "1",
+      "periodic Notification",
+      frequency: const Duration(hours: 1),
+    );
+  }
 
   @override
   void didChangeDependencies() {
@@ -78,7 +97,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ? controller.kBlack
         : controller.kWhite;
     return Scaffold(
-      backgroundColor:v,
+      backgroundColor: v,
       appBar: currentIndex != 1
           ? AppBar(
               backgroundColor: controller.kPrimary,
@@ -93,23 +112,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       });
                       controller.changeTheme();
                     },
-                    icon: Icon(iconMode,color: v))
+                    icon: Icon(iconMode, color: v))
               ],
-              actionsIconTheme:IconThemeData(color: controller.kWhite),
-              elevation: 1,
+              actionsIconTheme: IconThemeData(color: controller.kWhite),
+              elevation: 0,
               title: Text(
                 listScreen[currentIndex].title,
-                style: GoogleFonts.amiri(
-                  fontSize: 23,
-                  color: v
-                ),
+                style: GoogleFonts.amiri(fontSize: 23, color: v),
               ),
             )
           : null,
       body: Stack(
         children: [
           listScreen[currentIndex].body,
-          isLoaded
+          /*isLoaded
               ? Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
@@ -117,7 +133,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: AdWidget(ad: bannerAd!),
                   ),
                 )
-              : const SizedBox(),
+              : const SizedBox(),*/
         ],
       ),
       bottomNavigationBar: Container(
@@ -143,24 +159,31 @@ class _HomeScreenState extends State<HomeScreen> {
               interstitialAd!.show();
             }
           },
-          unselectedItemColor: controller.kWhite,
+          // unselectedItemColor: Colors.black,
           selectedItemColor: controller.kWhite,
-          items: [
+          items: const [
             BottomNavigationBarItem(
-              icon: const Icon(Icons.home_filled),
-              label: currentIndex == 0 ? 'الرئيسية' : '',
+            icon: Icon(Icons.menu_book),
+            // activeIcon: Icon(Icons.access_time_filled),
+            label: 'القرأن الكريم',
+          ),
+            BottomNavigationBarItem(
+                icon: Icon(Icons.assignment_outlined),
+                label: 'اذكاري',
+                activeIcon: Icon(Icons.assignment)),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.mosque_outlined),
+              activeIcon: Icon(Icons.mosque),
+              label: 'الرئيسية',
             ),
             BottomNavigationBarItem(
-                icon: const Icon(Icons.motion_photos_on_outlined),
-                label: currentIndex == 1 ? 'اذكاري' : '',
-                activeIcon: const Icon(Icons.motion_photos_on)),
-            BottomNavigationBarItem(
-              icon: const Icon(Icons.gradient_sharp),
-              label: currentIndex == 2 ? 'الأذكار' : '',
+              icon: Icon(Icons.grid_view),
+              activeIcon: Icon(Icons.grid_view_rounded),
+              label: 'الأذكار',
             ),
             BottomNavigationBarItem(
-              icon: const Icon(Icons.settings),
-              label: currentIndex == 3 ? 'مشاركة' : '',
+              icon: Icon(Icons.settings),
+              label: 'مشاركة',
             ),
           ],
         ),

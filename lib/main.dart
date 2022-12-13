@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/db/db_controller.dart';
+import 'package:kh_project/provider/All_surah.dart';
 import 'package:kh_project/provider/alhamed_zeker.dart';
 import 'package:kh_project/provider/azkary_provider.dart';
 import 'package:kh_project/provider/pray_time.dart';
@@ -11,10 +12,10 @@ import 'package:kh_project/screen/home_screen.dart';
 import 'package:kh_project/screen/lunch_screen.dart';
 import 'package:kh_project/screen/tsbeh_screen.dart';
 import 'package:provider/provider.dart';
-import 'package:workmanager/workmanager.dart';
 
 import 'component.dart';
 import 'screen/name_of_allah.dart';
+import 'screen/quran/surah.dart';
 import 'storge/pref_controller.dart';
 
 void main() async {
@@ -24,15 +25,17 @@ void main() async {
   getPosition();
   // initPray();
   MobileAds.instance.initialize();
-  Workmanager().initialize(callbackDispatcher, isInDebugMode: true);
-  bool? notificationActive = CacheHelper.getData(key: 'notificationActive');
-  runApp(MyApp(notificationActive: notificationActive));
+  // bool? notificationActive = CacheHelper.getData(key: 'notificationActive');
+
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key, required this.notificationActive});
+  const MyApp({
+    super.key,
+  });
 
-  final bool? notificationActive;
+//  final bool? notificationActive;
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +43,8 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AzkaryProvider>(
             create: (context) => AzkaryProvider()),
+        ChangeNotifierProvider<AllSu>(
+            create: (context) => AllSu()),
         ChangeNotifierProvider<AlhamedProvider>(
             create: (context) => AlhamedProvider()),
         ChangeNotifierProvider<ThemeProvider>(
@@ -47,7 +52,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<PrayerTi>(
           create: (context) => PrayerTi()
             ..getDay()
-            ..notStatus(fromShared: notificationActive),
+            ..activateNotification(),
+          //..notStatus(fromShared: notificationActive),
         ),
       ],
       builder: (context, child) => const MyAppMaterial(),
@@ -73,6 +79,7 @@ class MyAppMaterial extends StatelessWidget {
       ],
       debugShowCheckedModeBanner: false,
       initialRoute: '/lunch_screen',
+      // home: AllSurah(),
       routes: {
         '/lunch_screen': (context) => LunchScreen(),
         '/home_screen': (context) => HomeScreen(),

@@ -6,7 +6,6 @@ import 'package:provider/provider.dart';
 
 import '../clipBoard.dart';
 import '../model/azkar_list.dart';
-import '../storge/pref_controller.dart';
 
 class Zikr extends StatefulWidget {
   final String title;
@@ -18,6 +17,8 @@ class Zikr extends StatefulWidget {
 }
 
 class _ZikrState extends State<Zikr> {
+  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
+
   List? FindTheList() {
     if (widget.title == 'أذكار الصباح') return Azkar.morningZikr;
     if (widget.title == 'أذكار المساء') return Azkar.eveningZikr;
@@ -48,14 +49,21 @@ class _ZikrState extends State<Zikr> {
   List? zikr;
   List? foundZikr;
   int countOfZiker = 0;
-  int counter = 0;
+  int? counter;
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     foundZikr = FindTheList();
     zikr = foundZikr!.map((e) => e[1]).toList();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 
   @override
@@ -67,13 +75,14 @@ class _ZikrState extends State<Zikr> {
     Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
         ? controller.kBlack
         : controller.kWhite;
+
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: controller.kPrimary,
           appBar: AppBar(
-            leading: Icon(
+            leading: const Icon(
               Icons.abc,
               color: Colors.transparent,
             ),
@@ -87,11 +96,10 @@ class _ZikrState extends State<Zikr> {
                           builder: (context) => CountOfZiker(
                             title: widget.title,
                             zikerAdd: countOfZiker,
-                            shearedAdd: counter,
                           ),
                         ));
                   },
-                  icon: Icon(Icons.arrow_forward))
+                  icon: const Icon(Icons.arrow_forward))
             ],
             backgroundColor: controller.kPrimary,
             centerTitle: true,
@@ -105,152 +113,174 @@ class _ZikrState extends State<Zikr> {
               textAlign: TextAlign.center,
             ),
           ),
-          body: ListView.builder(
+          body: AnimatedList(
+            key: _listKey,
             physics: const BouncingScrollPhysics(),
-            itemCount: zikr!.length,
-            itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(25),
-                  topRight: Radius.circular(25),
-                ),
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: zikr![index] == 0 ? Colors.teal.shade200 : v,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-                  padding: const EdgeInsets.only(
-                      top: 18, bottom: 18.0, left: 12, right: 12),
-                  child: MaterialButton(
-                    splashColor: controller.kPrimary,
-                    onPressed: () {
-                      if (zikr![index] > 0) {
-                        setState(() {
-                          zikr![index] = zikr![index] - 1;
-                          countOfZiker++;
-                        });
-                      }
-                    },
-                    child: Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 4, vertical: 6),
-                          alignment: Alignment.topRight,
-                          child: InteractiveViewer(
-                            maxScale: 2,
-                            minScale: 0.4,
-                            child: Text(
-                              foundZikr![index][0],
-                              style: GoogleFonts.amiri(
-                                fontSize: 20,
-                              ),
-                              textDirection: TextDirection.rtl,
-                              textAlign: TextAlign.justify,
-                              textScaleFactor: 1.2,
-                            ),
-                          ),
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        const Divider(
-                          thickness: 1,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: IconButton(
-                                onPressed: () => getClipboard(context,
-                                    foundZikr![index][0], 'تم نسخ الذكر'),
-                                icon: Icon(
-                                  Icons.copy,
-                                  color: controller.kPrimary,
-                                  size: 24,
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                width: screenWidth / 5,
-                                height: screenHeight / 16,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                decoration: BoxDecoration(
-                                  color: controller.kPrimary,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: Center(
-                                  child: Text(
-                                    '${index + 1}',
-                                    style: GoogleFonts.amiri(
-                                        color: controller.kWhite),
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(
-                              flex: 1,
-                              child: Container(
-                                width: screenWidth / 5,
-                                height: screenHeight / 16,
-                                margin:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 4),
-                                decoration: BoxDecoration(
-                                  color: controller.kPrimary,
-                                  shape: BoxShape.rectangle,
-                                  borderRadius: BorderRadius.circular(12),
-                                ),
-                                child: zikr![index] == 0
-                                    ? Center(
-                                        child: Text(
-                                        'تم',
-                                        style: GoogleFonts.amiri(
-                                            color: controller.kWhite,
-                                            fontSize: 18),
-                                      ))
-                                    : Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          //Icon(Icons.repeat,color: ,),
-                                          FittedBox(
-                                              child: Text(
-                                            'عدد التكرار',
-                                            style: GoogleFonts.amiri(
-                                                color: controller.kWhite),
-                                          )),
-                                          FittedBox(
-                                              child: Text(
-                                            zikr![index].toString(),
-                                            style: GoogleFonts.amiri(
-                                                color: controller.kWhite),
-                                          )),
-                                        ],
-                                      ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              );
+            initialItemCount: zikr!.length,
+            itemBuilder: (context, int index, animation) {
+              return _buildItem(animation, controller, index, screenHeight,
+                  screenWidth, v, _listKey);
             },
           ),
         ),
       ),
     );
+  }
+
+  Widget _buildItem(Animation<double> animation, controller, index,
+      screenHeight, screenWidth, v, key) {
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(25),
+        topRight: Radius.circular(25),
+      ),
+      child: Container(
+        decoration: BoxDecoration(
+          color: v,
+          borderRadius: BorderRadius.circular(15),
+        ),
+        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        padding:
+            const EdgeInsets.only(top: 18, bottom: 18.0, left: 12, right: 12),
+        child: MaterialButton(
+          splashColor: controller.kPrimary,
+          onPressed: () {
+            // if(zikr![index]==0){
+            //   _removeItem(index);
+            // }
+            if (zikr![index] == 0) {
+              _removeItem(index);
+            }else if (zikr![index] >= 1) {
+              setState(() {
+                zikr![index] = zikr![index] - 1;
+              });
+            } else if (zikr![index] == 1) {
+              setState(() {
+                countOfZiker++;
+                //zikr!.removeAt(index);
+              });
+            }
+          },
+          child: Column(
+            children: [
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 6),
+                alignment: Alignment.topRight,
+                child: InteractiveViewer(
+                  maxScale: 2,
+                  minScale: 0.4,
+                  child: Text(
+                    foundZikr![index][0],
+                    style: GoogleFonts.amiri(
+                      fontSize: 20,
+                    ),
+                    textDirection: TextDirection.rtl,
+                    textAlign: TextAlign.justify,
+                    textScaleFactor: 1.2,
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 7,
+              ),
+              const Divider(
+                thickness: 1,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: IconButton(
+                      onPressed: () => getClipboard(
+                          context, foundZikr![index][0], 'تم نسخ الذكر'),
+                      icon: Icon(
+                        Icons.copy,
+                        color: controller.kPrimary,
+                        size: 24,
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: screenWidth / 5,
+                      height: screenHeight / 16,
+                      margin: const EdgeInsets.symmetric(horizontal: 20),
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      decoration: BoxDecoration(
+                        color: controller.kPrimary,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Center(
+                        child: FittedBox(
+                          child: Text(
+                            '${index + 1}',
+                            style: GoogleFonts.amiri(color: controller.kWhite),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child: Container(
+                      width: screenWidth / 5,
+                      // height: screenHeight / 16,
+                      margin: const EdgeInsets.symmetric(horizontal: 4),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                      decoration: BoxDecoration(
+                        color: controller.kPrimary,
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          //Icon(Icons.repeat,color: ,),
+                          FittedBox(
+                              child: Text(
+                            'عدد التكرار',
+                            style: GoogleFonts.amiri(color: controller.kWhite),
+                          )),
+                          FittedBox(
+                              child: Text(
+                            zikr![index].toString(),
+                            style: GoogleFonts.amiri(color: controller.kWhite),
+                          )),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _removeItem(int id) {
+    //azkary.indexWhere((element) => element.id ==id);
+    // int index  = zikr!.indexWhere((element) => element.id ==id);
+    _listKey.currentState!.removeItem(id, (context, animation) {
+      return SlideTransition(
+        position: animation.drive(Tween<Offset>(
+          begin: const Offset(-1.0, 0.0),
+          end: Offset.zero,
+        )),
+        child: const Card(
+          margin: EdgeInsets.all(10),
+          elevation: 10,
+          color: Colors.purple,
+          child: ListTile(
+            contentPadding: EdgeInsets.all(15),
+            title: Text("تمت القراءة", style: TextStyle(fontSize: 24)),
+          ),
+        ),
+      );
+    }, duration: const Duration(seconds: 1));
   }
 }

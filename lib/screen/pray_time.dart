@@ -28,7 +28,6 @@ class PrayTime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var formatter = Provider.of<PrayerTi>(context).formatter;
     var date = Provider.of<PrayerTi>(context).date;
     var theDay = Provider.of<PrayerTi>(context).myDay;
@@ -39,7 +38,7 @@ class PrayTime extends StatelessWidget {
       child: Scaffold(
         backgroundColor: co,
         appBar: AppBar(
-          title:  Text(
+          title: Text(
             'أوقات الصلاة حسب موقعك الجغرافي',
             style: GoogleFonts.amiri(
               fontSize: 16,
@@ -61,9 +60,9 @@ class PrayTime extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
+                      buildContainerPray(screenWidth, theDay),
                       buildContainerPray(
                           screenWidth, formatter.format(date).toString()),
-                      buildContainerPray(screenWidth, theDay),
                     ],
                   ),
                   const Divider(
@@ -78,9 +77,9 @@ class PrayTime extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  buildContainerPray(screenWidth, 'الصلاة القادمة'),
                   buildContainerPray(
                       screenWidth, decidePray(next.toString().split('.')[1])),
-                  buildContainerPray(screenWidth, 'الصلاة القادمة'),
                 ],
               ),
             ),
@@ -93,12 +92,12 @@ class PrayTime extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
+                  buildContainerPray(screenWidth, 'موعد الصلاة القادمة'),
                   buildContainerPray(
                       screenWidth,
                       countdown == null
                           ? '_____'
                           : DateFormat.jm().format(countdown).toString()),
-                  buildContainerPray(screenWidth, 'موعد الصلاة القادمة'),
                 ],
               ),
             ),
@@ -119,8 +118,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.fajr),
                           buildContainerText('صلاة الفجر'),
+                          buildContainerTime(screenWidth, prayerTimes.fajr),
                         ],
                       ),
                     ),
@@ -132,8 +131,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.sunrise),
                           buildContainerText('شروق الشمس'),
+                          buildContainerTime(screenWidth, prayerTimes.sunrise),
                         ],
                       ),
                     ),
@@ -145,8 +144,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.dhuhr),
                           buildContainerText('صلاة الظهر'),
+                          buildContainerTime(screenWidth, prayerTimes.dhuhr),
                         ],
                       ),
                     ),
@@ -158,8 +157,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.asr),
                           buildContainerText('صلاة العصر'),
+                          buildContainerTime(screenWidth, prayerTimes.asr),
                         ],
                       ),
                     ),
@@ -171,8 +170,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.maghrib),
                           buildContainerText('صلاة المغرب'),
+                          buildContainerTime(screenWidth, prayerTimes.maghrib),
                         ],
                       ),
                     ),
@@ -184,8 +183,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerTime(screenWidth, prayerTimes.isha),
                           buildContainerText('صلاة العشاء'),
+                          buildContainerTime(screenWidth, prayerTimes.isha),
                         ],
                       ),
                     ),
@@ -206,17 +205,17 @@ class PrayTime extends StatelessWidget {
       width: screenWidth / 2.5,
       child: Center(
         child: Container(
-          padding: const EdgeInsets.only(right: 20),
-          alignment: Alignment.topRight,
+
+          // padding: const EdgeInsets.only(right: 20),
+          alignment: Alignment.center,
           child: FittedBox(
             child: Text(
               title,
               style: GoogleFonts.amiri(
-                fontSize: 18,
-                color: Colors.white,
-
-              ),
-              textAlign: TextAlign.right,
+                  fontSize: 20,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold),
+              // textAlign: TextAlign.right,
             ),
           ),
         ),
@@ -229,6 +228,9 @@ class PrayTime extends StatelessWidget {
       child: FittedBox(
         child: Row(
           children: [
+            const SizedBox(
+              width: 30,
+            ),
             Container(
               width: screenWidth / 3.5,
               alignment: Alignment.centerRight,
@@ -243,9 +245,6 @@ class PrayTime extends StatelessWidget {
                 // textDirection: TextDirection.RTL,
               ),
             ),
-            const SizedBox(
-              width: 30,
-            )
           ],
         ),
       ),

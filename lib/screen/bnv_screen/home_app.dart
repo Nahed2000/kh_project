@@ -3,14 +3,16 @@ import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kh_project/screen/pray_time.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
 import '../../clipBoard.dart';
+import 'package:intl/intl.dart';
+import '../../component.dart';
 import '../../model/azkar_list.dart';
 import '../../provider/theme_provider.dart';
 import '../../widget/custom_button.dart';
-import '../pray_time.dart';
 import '../zikr.dart';
 
 class HomeApp extends StatefulWidget {
@@ -21,11 +23,15 @@ class HomeApp extends StatefulWidget {
 }
 
 class _HomeAppState extends State<HomeApp> {
+  ThemeProvider? controller;
+
   @override
   void initState() {
     // TODO: implement initState
     greeting();
     super.initState();
+
+    controller = Provider.of<ThemeProvider>(context, listen: false);
   }
 
   final random = Random();
@@ -43,54 +49,101 @@ class _HomeAppState extends State<HomeApp> {
 
     Size size = MediaQuery.of(context).size;
 
-    var controller = Provider.of<ThemeProvider>(context, listen: false);
-    Color v= Provider.of<ThemeProvider>(context) == ThemeData.dark()
-        ? controller.kBlack
-        : controller.kWhite;
+
+    double screenWidth = size.width;
+
+    Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
+        ? controller!.kBlack
+        : controller!.kWhite;
     return ListView(
       children: [
         SizedBox(
-          height: size.height * 0.4,
+          height: size.height * 0.58,
           child: Stack(
             children: [
               Column(
                 children: [
-                  Expanded(
-                    flex: 1,
+                  Container(
+                    decoration: BoxDecoration(
+                        color: controller!.kPrimary,
+                        image: DecorationImage(
+                          image: DateTime.now().hour < 18
+                              ? AssetImage(
+                                  'assets/image/4.jpg',
+                                )
+                              : AssetImage(
+                                  'assets/image/images.jpeg',
+                                ),
+                          fit: BoxFit.cover,
+                        )),
+                    // padding: const EdgeInsets.symmetric(
+                    // vertical: 80, horizontal: 20),
+                    height: screenWidth / 1.4,
+                  ),
+                  SizedBox(
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 80, horizontal: 20),
-                      color: controller.kPrimary,
+                      height: screenWidth / 2,
+                      color: controller!.kWhite,
                     ),
                   ),
-                  const Spacer(),
                 ],
               ),
-              Center(
+              Positioned(
+                top: 50,
+                // right: 20,
+                // left: 30,
+                child: Container(
+                  height: size.height * 0.125,
+                  width: screenWidth,
+                  child: prayerTimes == null
+                      ? const CircularProgressIndicator(color: Colors.teal)
+                      : Container(
+                          // alignment: Alignment.center,
+                          padding: const EdgeInsets.symmetric(vertical: 6),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              PrayTime().buildContainerPray(
+                                  screenWidth,
+                                  PrayTime().decidePray(
+                                      next.toString().split('.')[1])),
+                              SizedBox(height: size.height * 0.01),
+                              PrayTime().buildContainerPray(
+                                  screenWidth,
+                                  countdown == null
+                                      ? 'انتهت صلوات اليوم'
+                                      : DateFormat.jm()
+                                          .format(countdown)
+                                          .toString()),
+                            ],
+                          ),
+                        ),
+                ),
+              ),
+              Positioned(
+                top: 200,
+                right: 50,
                 child: Container(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 40,
                     vertical: 30,
                   ),
                   decoration: BoxDecoration(
-                    boxShadow:  [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 5,
-                        spreadRadius: 3
-                      )
+                    boxShadow: [
+                      const BoxShadow(
+                          color: Colors.grey, blurRadius: 5, spreadRadius: 3)
                     ],
                     borderRadius: BorderRadius.circular(15),
                     color: v,
                   ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Text(
                         'مرحبا بك',
                         style: GoogleFonts.amiri(
-                          // color: controller.kWhite,
+                          // color: controller!.kWhite,
                           fontSize: 25,
                           fontWeight: FontWeight.bold,
                         ),
@@ -104,7 +157,7 @@ class _HomeAppState extends State<HomeApp> {
                       ),
                       const SizedBox(height: 8),
                       CircleAvatar(
-                        backgroundColor: controller.kPrimary,
+                        backgroundColor: controller!.kPrimary,
                         child: IconButton(
                           onPressed: () {
                             Navigator.push(
@@ -116,7 +169,7 @@ class _HomeAppState extends State<HomeApp> {
                           },
                           icon: Icon(
                             Icons.arrow_forward_rounded,
-                            color:  controller.kWhite,
+                            color: controller!.kWhite,
                           ),
                         ),
                       ),
@@ -126,6 +179,19 @@ class _HomeAppState extends State<HomeApp> {
               ),
             ],
           ),
+        ),
+        Center(
+          child: CustomButton(
+            title: 'مواقيت الصلاة',
+            onPress: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => PrayTime(),
+                )),
+          ),
+        ),
+        SizedBox(
+          height: size.height * 0.02,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -153,20 +219,20 @@ class _HomeAppState extends State<HomeApp> {
           height: size.height * 0.02,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CustomButton(
               title: 'تسبيح',
               onPress: () => Navigator.pushNamed(context, '/tsbeh_screen'),
             ),
-            CustomButton(
-              title: 'مواقيت الصلاة',
-              onPress: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PrayTime(),
-                  )),
-            ),
+            // CustomButton(
+            //   title: 'مواقيت الصلاة',
+            //   onPress: () => Navigator.push(
+            //       context,
+            //       MaterialPageRoute(
+            //         builder: (context) => PrayTime(),
+            //       )),
+            // ),
           ],
         ),
         SizedBox(
@@ -176,16 +242,13 @@ class _HomeAppState extends State<HomeApp> {
           padding: const EdgeInsets.all(30.0),
           child: Container(
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey,
-                    blurRadius: 3,
-                    spreadRadius: 2,
-                  )
-                ],
-                borderRadius: BorderRadius.circular(15),
-                color: v),
+            decoration: BoxDecoration(boxShadow: [
+              const BoxShadow(
+                color: Colors.grey,
+                blurRadius: 3,
+                spreadRadius: 2,
+              )
+            ], borderRadius: BorderRadius.circular(15), color: v),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
@@ -224,10 +287,10 @@ class _HomeAppState extends State<HomeApp> {
                   }),
                   child: CircleAvatar(
                     radius: 25,
-                    backgroundColor: controller.kPrimary,
+                    backgroundColor: controller!.kPrimary,
                     child: Icon(
                       Icons.cached_rounded,
-                      color: controller.kWhite,
+                      color: controller!.kWhite,
                       size: 30,
                     ),
                   ),
@@ -241,13 +304,16 @@ class _HomeAppState extends State<HomeApp> {
           child: Container(
             // height: size.height *0.4,
             padding: const EdgeInsets.all(20),
-            decoration: BoxDecoration(boxShadow:  [
-              BoxShadow(
-                color: Colors.grey,
-                blurRadius: 2,
-                spreadRadius: 2,
-              )
-            ], borderRadius: BorderRadius.circular(15), color: controller.kWhite),
+            decoration: BoxDecoration(
+                boxShadow: [
+                  const BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 2,
+                    spreadRadius: 2,
+                  )
+                ],
+                borderRadius: BorderRadius.circular(15),
+                color: controller!.kWhite),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               mainAxisSize: MainAxisSize.min,
@@ -272,12 +338,12 @@ class _HomeAppState extends State<HomeApp> {
                   height: size.height * 0.15,
                   child: DefaultTextStyle(
                     style: GoogleFonts.amiri(
-                        fontSize: 70.0, color: controller.kBlack),
+                        fontSize: 70.0, color: controller!.kBlack),
                     child: AnimatedTextKit(
                       animatedTexts: [
                         ScaleAnimatedText(
                           elementNameOfAllah[0],
-                          duration: Duration(seconds: 2),
+                          duration: const Duration(seconds: 2),
                         ),
                       ],
                       isRepeatingAnimation: true,
@@ -295,10 +361,10 @@ class _HomeAppState extends State<HomeApp> {
                       }),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: controller.kPrimary,
+                        backgroundColor: controller!.kPrimary,
                         child: Icon(
                           Icons.cached_rounded,
-                          color: controller.kWhite,
+                          color: controller!.kWhite,
                           size: 30,
                         ),
                       ),
@@ -308,10 +374,10 @@ class _HomeAppState extends State<HomeApp> {
                           elementNameOfAllah[1]),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: controller.kPrimary,
+                        backgroundColor: controller!.kPrimary,
                         child: Icon(
                           Icons.arrow_forward,
-                          color: controller.kWhite,
+                          color: controller!.kWhite,
                         ),
                       ),
                     ),
@@ -331,15 +397,15 @@ class _HomeAppState extends State<HomeApp> {
               child: Container(
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                    boxShadow:  [
-                      BoxShadow(
+                    boxShadow: [
+                      const BoxShadow(
                         color: Colors.grey,
                         blurRadius: 3,
                         spreadRadius: 2,
                       )
                     ],
                     borderRadius: BorderRadius.circular(15),
-                    color: controller.kWhite),
+                    color: controller!.kWhite),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   mainAxisSize: MainAxisSize.min,
@@ -376,10 +442,10 @@ class _HomeAppState extends State<HomeApp> {
                       }),
                       child: CircleAvatar(
                         radius: 25,
-                        backgroundColor: controller.kPrimary,
+                        backgroundColor: controller!.kPrimary,
                         child: Icon(
                           Icons.cached_rounded,
-                          color: controller.kWhite,
+                          color: controller!.kWhite,
                           size: 30,
                         ),
                       ),
@@ -391,15 +457,15 @@ class _HomeAppState extends State<HomeApp> {
             Align(
               alignment: Alignment.topCenter,
               child: CircleAvatar(
-                backgroundColor: controller.kPrimary,
+                backgroundColor: controller!.kPrimary,
                 radius: size.height * 0.05,
                 child: CircleAvatar(
                   radius: size.height * 0.04,
-                  backgroundColor: controller.kWhite,
+                  backgroundColor: controller!.kWhite,
                   child: Icon(
                     Icons.currency_pound_rounded,
                     size: size.height * 0.05,
-                    color: controller.kPrimary,
+                    color: controller!.kPrimary,
                   ),
                 ),
               ),
@@ -420,16 +486,16 @@ class _HomeAppState extends State<HomeApp> {
               vertical: 30,
             ),
             decoration: BoxDecoration(
-              boxShadow:  [
+              boxShadow: [
                 BoxShadow(
-                  color: controller.kBlack,
+                  color: controller!.kBlack,
                   blurRadius: 1,
                 ),
               ],
               borderRadius: BorderRadius.circular(
                 15,
               ),
-              color: controller.kWhite,
+              color: controller!.kWhite,
             ),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -454,10 +520,10 @@ class _HomeAppState extends State<HomeApp> {
                 GestureDetector(
                   onTap: () => Navigator.pushNamed(context, '/alhamed_screen'),
                   child: CircleAvatar(
-                    backgroundColor: controller.kPrimary,
+                    backgroundColor: controller!.kPrimary,
                     child: Icon(
                       Icons.arrow_forward_rounded,
-                      color: controller.kWhite,
+                      color: controller!.kWhite,
                     ),
                   ),
                 ),
@@ -488,7 +554,7 @@ class _HomeAppState extends State<HomeApp> {
       builder: (ctx) => AlertDialog(
         title: Text(
           name,
-          style: TextStyle(
+          style: const TextStyle(
             color: Colors.teal,
             fontSize: 20,
             fontWeight: FontWeight.bold,
@@ -497,7 +563,7 @@ class _HomeAppState extends State<HomeApp> {
         ),
         content: Text(
           mean,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 18,
           ),
           textAlign: TextAlign.right,
@@ -505,7 +571,7 @@ class _HomeAppState extends State<HomeApp> {
         actions: [
           TextButton(
             onPressed: () => getClipboard(context, mean, 'تم نسخ المعنى'),
-            child: Text(
+            child: const Text(
               'نسخ',
               style: TextStyle(
                 color: Colors.teal,
@@ -517,7 +583,7 @@ class _HomeAppState extends State<HomeApp> {
             // color: Colors.teal,
             autofocus: true,
             onPressed: () => Navigator.of(ctx).pop(),
-            child: Text(
+            child: const Text(
               'إغلاق',
               style: TextStyle(
                 color: Colors.red,
@@ -527,6 +593,59 @@ class _HomeAppState extends State<HomeApp> {
           ),
         ],
       ),
+    );
+  }
+
+  FittedBox buildContainerTime(screenWidth, time) {
+    return FittedBox(
+      child: FittedBox(
+        child: Row(
+          children: [
+            const SizedBox(
+              width: 40,
+            ),
+            Container(
+              width: screenWidth / 3.5,
+              alignment: Alignment.centerRight,
+              child: Text(
+                DateFormat.jm().format(time).toString(),
+                style: GoogleFonts.amiri(
+                  color: controller!.kWhite,
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.right,
+                // textDirection: TextDirection.RTL,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Container buildContainerText(pray) {
+    return Container(
+      alignment: Alignment.centerRight,
+      child: FittedBox(
+        child: Text(
+          pray,
+          style: GoogleFonts.amiri(
+            color: controller!.kWhite,
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.right,
+        ),
+      ),
+    );
+  }
+
+  Widget verticalLine() {
+    return Container(
+      width: 1,
+      height: 8,
+      color: controller!.kBlack,
     );
   }
 }

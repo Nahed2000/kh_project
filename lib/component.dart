@@ -16,26 +16,9 @@ Color co = const Color.fromRGBO(18, 140, 126, 1);
 
 int suarhSize = 16;
 
-late Position position;
-getPosition() async {
-  LocationPermission permission;
-  permission = await Geolocator.requestPermission();
-    position = await Geolocator.getCurrentPosition();
-  initPray();
-  if (kDebugMode) {
-    print('longitude = ' + position.longitude.toString());
-    print('latitude = ' + position.latitude.toString()); //Output: 29.6593457
-  }
-
-  // double long = position.longitude;
-  // double lat = position.latitude;
-  // print('longitude is  : $long');
-  // print('latiude is  : $lat');
-  // log('longitude =   long.toString()); //Output: 80.24599079
-  // print(log('latitude = ' + lat.toString());
-}
 
 var time = DateTime.now();
+
 
 getZikrStart() {
   int rndmIndex = 0;
@@ -201,18 +184,79 @@ var countdown;
 
 late Coordinates myCoordinates;
 
-initPray() {
+late Position position;
+getPosition() async {
+  LocationPermission permission;
+  permission = await Geolocator.requestPermission();
+  position = await Geolocator.getCurrentPosition();
+  initPray();
+  if (kDebugMode) {
+    print('longitude = ' + position.longitude.toString() + '000000000');
+    print('latitude = ' + position.latitude.toString()); //Output: 29.6593457
+  }
+
+  // double long = position.longitude;
+  // double lat = position.latitude;
+  // print('longitude is  : $long');
+  // print('latiude is  : $lat');
+  // log('longitude =   long.toString()); //Output: 80.24599079
+  // print(log('latitude = ' + lat.toString());
+}
+
+
+/*
+Future determinePosition() async {
+  bool serviceEnabled;
+  LocationPermission permission;
+
+  // Test if location services are enabled.
+  serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  if (!serviceEnabled) {
+    // Location services are not enabled don't continue
+    // accessing the position and request users of the
+    // App to enable the location services.
+    return Future.error('Location services are disabled.');
+  }
+
+  permission = await Geolocator.checkPermission();
+  if (permission == LocationPermission.denied) {
+    permission = await Geolocator.requestPermission();
+    if (permission == LocationPermission.denied) {
+      return Future.error('Location permissions are denied');
+    }
+  }
+
+  if (permission == LocationPermission.deniedForever) {
+    // Permissions are denied forever, handle appropriately.
+    return Future.error(
+        'Location permissions are permanently denied, we cannot request permissions.');
+  }
+
+  // When we reach here, permissions are granted and we can
+  // continue accessing the position of the device.
+  return await Geolocator.getCurrentPosition().then((value) {
+    lat = value.latitude;
+    long = value.longitude;
+ //   notifyListeners();
+  });
+}
+*/
+
+
+initPray({lat, long}) {
   // qibla = Qibla(Coordinates(position.longitude, position.latitude));
   // qibla = Qibla(Coordinates(31.5, 34.46667));
-   myCoordinates = Coordinates(position.longitude, position.latitude);
-   print(myCoordinates);
-  // myCoordinates = Coordinates(31.4, 34.46667);
+   //myCoordinates = Coordinates(lat, long);
+  myCoordinates = Coordinates(position.latitude, position.longitude);
+   print(myCoordinates.longitude);
+
+  // myCoordinates = Coordinates(51.5651111, 25.0990371);
 //myCoordinates = Coordinates(31.898043, 35.204269);
 
   // Replace with your own location lat, lng.
   final params = CalculationMethod.egyptian.getParameters();
 
-  params.madhab = Madhab.shafi;
+  params.madhab = Madhab.hanafi;
   prayerTimes = PrayerTimes.today(myCoordinates,params);
   // prayerTimes = getSettings(myCoordinates, params);
   //qib = qibla.direction;/
@@ -251,7 +295,9 @@ callbackDispatcher() {
   });
 }
 
+
 Future showNotification() async {
+
   int rndmIndex = Random().nextInt(Azkar.randomZikr.length - 1);
 
   AndroidNotificationDetails androidPlatformChannelSpecifics =
@@ -277,4 +323,5 @@ Future showNotification() async {
     Azkar.randomZikr[rndmIndex][0],
     platformChannelSpecifics,
   );
+
 }

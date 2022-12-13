@@ -39,7 +39,9 @@ class ShareAppScreen extends StatelessWidget {
             //
           ],
         ),
-        Center(
+        Positioned(
+          bottom: MediaQuery.of(context).size.width / 1.3 ,
+          left: MediaQuery.of(context).size.width / 8,
           child: ElevatedButton(
             onPressed: () {
               Share.share('ios:'
@@ -66,8 +68,8 @@ class ShareAppScreen extends StatelessWidget {
           ),
         ),
         Positioned(
-          bottom: MediaQuery.of(context).size.height * 0.21,
-          left: MediaQuery.of(context).size.width * 0.16,
+          bottom: MediaQuery.of(context).size.width / 2.3 ,
+          left: MediaQuery.of(context).size.width / 8,
           child: Container(
             alignment: Alignment.center,
             child: ElevatedButton(
@@ -87,7 +89,7 @@ class ShareAppScreen extends StatelessWidget {
                   )),
               child: Text(
                 'تقييم التطبيق',
-                style: GoogleFonts.amiri(color: controller.kBlack, fontSize: 22),
+                style: GoogleFonts.amiri(color: controller.kBlack, fontSize: 23),
               ),
             ),
           ),

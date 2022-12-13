@@ -1,19 +1,41 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kh_project/storge/pref_controller.dart';
 import 'package:provider/provider.dart';
 
 import '../../provider/theme_provider.dart';
 
-class CountOfZiker extends StatelessWidget {
+class CountOfZiker extends StatefulWidget {
   const CountOfZiker({
     Key? key,
     required this.title,
-    required this.shearedAdd,
     required this.zikerAdd,
   }) : super(key: key);
   final String title;
   final int zikerAdd;
-  final int shearedAdd;
+
+  @override
+  State<CountOfZiker> createState() => _CountOfZikerState();
+}
+
+class _CountOfZikerState extends State<CountOfZiker> {
+
+
+  int? count;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    if(CacheHelper.getDataInt(key: 'sharedCount') == 0 || CacheHelper.getDataInt(key: 'sharedCount') == null ){
+      CacheHelper.putDataInt(key: 'sharedCount', value: 0);
+    }
+
+    CacheHelper.putDataInt(key: 'sharedCount',value:CacheHelper.getDataInt(key: 'sharedCount')! + widget.zikerAdd ) ;
+
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +50,7 @@ class CountOfZiker extends StatelessWidget {
         actionsIconTheme: IconThemeData(color: controller.kWhite),
         elevation: 1,
         title: Text(
-          title,
+          widget.title,
           style: GoogleFonts.amiri(fontSize: 23, color: v),
         ),
       ),
@@ -64,26 +86,26 @@ class CountOfZiker extends StatelessWidget {
           Center(
             child: Row(
               children: [
-                Spacer(),
+                const Spacer(),
                 Container(
                   alignment: Alignment.center,
                   height: size.width * 0.2,
-                  padding: EdgeInsets.all(20),
+                  padding:const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       // borderRadius: BorderRadius.circular(15),
                       color: v,
                       border: Border.all(color: Colors.grey)),
-                  child: Text('اللأذكار المضافة'),
+                  child:const Text('اللأذكار المضافة'),
                 ),
                 Container(
                   alignment: Alignment.center,
                   width: size.width * 0.3,
                   height: size.width * 0.2,
-                  padding: EdgeInsets.all(20),
+                  padding:const EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       color: Colors.grey,
                       border: Border.all(color: Colors.grey)),
-                  child: Text(shearedAdd.toString()),
+                  child: Text(widget.zikerAdd.toString()),
                 ),
                 Spacer()
               ],
@@ -120,7 +142,7 @@ class CountOfZiker extends StatelessWidget {
                         // borderRadius: BorderRadius.circular(15),
                         color: Colors.grey,
                         border: Border.all(color: Colors.grey)),
-                    child: Text(shearedAdd.toString()),
+                    child: Text(CacheHelper.getDataInt(key: 'sharedCount')!.toString()),
                   ),
                   Spacer()
                 ],
