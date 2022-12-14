@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:kh_project/provider/theme_provider.dart';
-import 'package:kh_project/screen/bnv_screen/azkar_app.dart';
-import 'package:kh_project/screen/bnv_screen/azkary.dart';
-import 'package:kh_project/screen/pray_time.dart';
+import 'package:kh_project/screen/azkar_app.dart';
+import 'package:kh_project/screen/azkary.dart';
+import 'package:kh_project/screen/bnv_screen/pray_time.dart';
 import 'package:provider/provider.dart';
 import 'package:workmanager/workmanager.dart';
 
 import '../component.dart';
 import '../model/bnb_model.dart';
+import '../widget/image_icon.dart';
 import 'bnv_screen/home_app.dart';
+import 'bnv_screen/qiblah.dart';
 import 'bnv_screen/share_app.dart';
 import 'quran/surah.dart';
 
@@ -22,12 +24,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  int currentIndex = 2;
+  int currentIndex = 0;
   List<BNBModel> listScreen = <BNBModel>[
-    BNBModel(title: 'القرآن الكريم', body: AllSurah()),
-    BNBModel(title: '', body: const AzkaryScreen()),
-    BNBModel(title: '', body: const HomeApp()),
-    BNBModel(title: 'الأذكار و الأدعية ', body: const AzkarScreen()),
+    BNBModel(title: 'الصفحة الرئيسية', body: const HomeApp()),
+    BNBModel(title: 'مواقيت الصلاة', body: PrayTime()),
+    BNBModel(title: 'القرآن الكريم', body: const AllSurah()),
+    BNBModel(title: 'القبلة ', body:  const Qiblah()),
     BNBModel(title: 'صدقة جارية', body: const ShareAppScreen()),
   ];
   IconData iconMode = Icons.dark_mode_outlined;
@@ -99,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: currentIndex != 1
           ? AppBar(
               backgroundColor: controller.kPrimary,
-              centerTitle: currentIndex == 3 ? false : true,
+              // centerTitle: currentIndex == 3 ? false : true,
               actions: [
                 IconButton(
                     onPressed: () {
@@ -116,7 +118,8 @@ class _HomeScreenState extends State<HomeScreen> {
               elevation: 0,
               title: Text(
                 listScreen[currentIndex].title,
-                style: GoogleFonts.amiri(fontSize: 23, color: controller.kWhite),
+                style:
+                    GoogleFonts.amiri(fontSize: 23, color: controller.kWhite),
               ),
             )
           : null,
@@ -135,18 +138,20 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: Container(
+        clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
+          color: co,
+          borderRadius: const BorderRadius.only(
+            topRight: Radius.circular(20),
+            topLeft: Radius.circular(20),
+          ),
           boxShadow: [
-            BoxShadow(
-              color: Colors.teal.shade900.withOpacity(0.9),
-              spreadRadius: 2,
-              blurRadius: 5,
-              // offset: const Offset(0, 3), // changes position of shadow
-            ),
+            BoxShadow(color: controller.kBlack, spreadRadius: 1, blurRadius: 1)
           ],
         ),
         child: BottomNavigationBar(
-          backgroundColor: Colors.teal.shade800,
+          elevation: 2,
+          backgroundColor: controller.kWhite,
           type: BottomNavigationBarType.fixed,
           currentIndex: currentIndex,
           onTap: (index) {
@@ -157,30 +162,38 @@ class _HomeScreenState extends State<HomeScreen> {
               interstitialAd!.show();
             }
           },
-          // unselectedItemColor: Colors.black,
-          selectedItemColor: controller.kWhite,
-          items: const [
+          selectedItemColor: controller.kBlack,
+          unselectedItemColor: controller.kBlack,
+          items: [
             BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            // activeIcon: Icon(Icons.access_time_filled),
-            label: 'القرأن الكريم',
-          ),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.assignment_outlined),
-                label: 'اذكاري',
-                activeIcon: Icon(Icons.assignment)),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.mosque_outlined),
-              activeIcon: Icon(Icons.mosque),
+              icon: ImagesIcons('assets/image/home.png',
+                  active: false, color: controller.kBlack),
+              activeIcon: ImagesIcons('assets/image/active_home.png'),
               label: 'الرئيسية',
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.grid_view),
-              activeIcon: Icon(Icons.grid_view_rounded),
-              label: 'الأذكار',
+              icon: ImagesIcons('assets/image/prayer-mat.png',
+                  active: false, color: controller.kBlack),
+              label: 'أوقات الصلاة',
+              activeIcon: ImagesIcons('assets/image/prayer-mat (1).png'),
             ),
             BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
+              icon: ImagesIcons('assets/image/koran (1).png',
+                  active: false, color: controller.kBlack),
+              activeIcon: ImagesIcons('assets/image/quran (4).png'),
+              // activeIcon: Icon(Icons.access_time_filled),
+              label: 'القرأن الكريم',
+            ),
+            BottomNavigationBarItem(
+              icon: ImagesIcons('assets/image/kaaba.png',
+                  active: false, color: controller.kBlack),
+              activeIcon: ImagesIcons('assets/image/kaaba (1).png'),
+              label: 'القبلة',
+            ),
+            BottomNavigationBarItem(
+              icon: ImagesIcons('assets/image/gear.png',
+                  active: false, color: controller.kBlack),
+              activeIcon: ImagesIcons('assets/image/setting.png'),
               label: 'مشاركة',
             ),
           ],
@@ -189,3 +202,5 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 }
+
+

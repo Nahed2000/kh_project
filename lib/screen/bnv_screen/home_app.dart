@@ -1,9 +1,10 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:kh_project/screen/pray_time.dart';
+import 'package:kh_project/screen/bnv_screen/pray_time.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -14,6 +15,8 @@ import '../../model/azkar_list.dart';
 import '../../provider/theme_provider.dart';
 import '../../widget/custom_button.dart';
 import '../zikr.dart';
+import '../azkar_app.dart';
+import '../azkary.dart';
 
 class HomeApp extends StatefulWidget {
   const HomeApp({Key? key}) : super(key: key);
@@ -49,7 +52,6 @@ class _HomeAppState extends State<HomeApp> {
 
     Size size = MediaQuery.of(context).size;
 
-
     double screenWidth = size.width;
 
     Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
@@ -68,11 +70,11 @@ class _HomeAppState extends State<HomeApp> {
                         color: controller!.kPrimary,
                         image: DecorationImage(
                           image: DateTime.now().hour < 18
-                              ? AssetImage(
-                                  'assets/image/4.jpg',
+                              ? const AssetImage(
+                                  'assets/image/mo2.jpg',
                                 )
-                              : AssetImage(
-                                  'assets/image/images.jpeg',
+                              : const AssetImage(
+                                  'assets/image/mo1.jpg',
                                 ),
                           fit: BoxFit.cover,
                         )),
@@ -97,25 +99,28 @@ class _HomeAppState extends State<HomeApp> {
                   width: screenWidth,
                   child: prayerTimes == null
                       ? const CircularProgressIndicator(color: Colors.teal)
-                      : Container(
-                          // alignment: Alignment.center,
-                          padding: const EdgeInsets.symmetric(vertical: 6),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              PrayTime().buildContainerPray(
-                                  screenWidth,
-                                  PrayTime().decidePray(
-                                      next.toString().split('.')[1])),
-                              SizedBox(height: size.height * 0.01),
-                              PrayTime().buildContainerPray(
-                                  screenWidth,
-                                  countdown == null
-                                      ? 'انتهت صلوات اليوم'
-                                      : DateFormat.jm()
-                                          .format(countdown)
-                                          .toString()),
-                            ],
+                      : BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
+                          child: Container(
+                            // alignment: Alignment.center,
+                            padding: const EdgeInsets.symmetric(vertical: 6),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                PrayTime().buildContainerPray(
+                                    screenWidth,
+                                    PrayTime().decidePray(
+                                        next.toString().split('.')[1])),
+                                SizedBox(height: size.height * 0.01),
+                                PrayTime().buildContainerPray(
+                                    screenWidth,
+                                    countdown == null
+                                        ? '- - - - - - - - - '
+                                        : DateFormat.jm()
+                                            .format(countdown)
+                                            .toString()),
+                              ],
+                            ),
                           ),
                         ),
                 ),
@@ -180,23 +185,11 @@ class _HomeAppState extends State<HomeApp> {
             ],
           ),
         ),
-        Center(
-          child: CustomButton(
-            title: 'مواقيت الصلاة',
-            onPress: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PrayTime(),
-                )),
-          ),
-        ),
-        SizedBox(
-          height: size.height * 0.02,
-        ),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CustomButton(
+              images: 'assets/image/sunrise.png',
               title: 'ورد الصباح',
               onPress: () => Navigator.push(
                 context,
@@ -206,6 +199,7 @@ class _HomeAppState extends State<HomeApp> {
               ),
             ),
             CustomButton(
+              images: 'assets/image/night.png',
               title: 'ورد المساء',
               onPress: () => Navigator.push(
                   context,
@@ -219,21 +213,53 @@ class _HomeAppState extends State<HomeApp> {
           height: size.height * 0.02,
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             CustomButton(
+              images: 'assets/image/activ_zikr.png',
+              title: 'أذكاري',
+              onPress: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => AzkaryScreen()
+                ),
+              ),
+            ),
+            CustomButton(
+              images: 'assets/image/azkar_active.png',
+              title: 'الأذكار',
+              onPress: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AzkarScreen(),
+                  )),
+            ),
+          ],
+        ),
+        SizedBox(
+          height: size.height * 0.02,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            CustomButton(
+              images: 'assets/image/calendar.png',
+              title: 'مواقيت الصلاة',
+              onPress: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => PrayTime(),
+                  )),
+            ),
+            CustomButton(
+              images: 'assets/image/tasbih.png',
               title: 'تسبيح',
               onPress: () => Navigator.pushNamed(context, '/tsbeh_screen'),
-            ),
-            // CustomButton(
-            //   title: 'مواقيت الصلاة',
-            //   onPress: () => Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //         builder: (context) => PrayTime(),
-            //       )),
-            // ),
+            )
           ],
+        ),
+        SizedBox(
+          height: size.height * 0.02,
         ),
         SizedBox(
           height: size.height * 0.02,

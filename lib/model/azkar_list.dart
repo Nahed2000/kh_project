@@ -1285,6 +1285,24 @@ class Category {
   });
 }
 
+const zikerImage = <String>[
+  'assets/image/sunrise.png',
+  'assets/image/night.png',
+  'assets/image/praying.png',
+  'assets/image/sleep.png',
+  'assets/image/wake-up.png',
+  'assets/image/praying (1).png',
+  'assets/image/azkar_active.png',
+  'assets/image/time-to-eat.png',
+  'assets/image/house.png',
+  'assets/image/mosque (1).png',
+  'assets/image/wudu.png',
+  'assets/image/adhan.png',
+  'assets/image/bath.png',
+  'assets/image/random.png',
+  'assets/image/moon.png'
+];
+
 const Dummy_Zikr = [
   Category(id: '1', title: 'أذكار الصباح', color: Colors.brown),
   Category(id: '2', title: 'أذكار المساء', color: Colors.purple),
@@ -1298,14 +1316,9 @@ const Dummy_Zikr = [
   Category(id: '11', title: 'أذكار المسجد', color: Colors.cyan),
   Category(id: '12', title: 'أذكار الوضوء', color: Colors.grey),
   Category(id: '13', title: 'أذكار الأذان', color: Colors.lightGreen),
-  // Category(id: '14', title: 'دعاء للميت', color: Colors.deepOrangeAccent),
   Category(id: '15', title: 'أذكار الخلاء', color: Colors.blueGrey),
   Category(id: '16', title: 'أذكار عشوائية', color: Colors.indigoAccent),
   Category(id: '17', title: 'الرقية الشرعية', color: Colors.orange),
-  //Category(id: '16', title: 'أدعية للمتوفى (ذكور)', color: Colors.indigoAccent),
-  //Category(id: '16', title: 'أدعية للمتوفية (إناث)', color: Colors.indigoAccent),
-  //Category(id: '16', title: 'أدعية للميّت الطفل الصغير (ذكر أو أنثى)', color: Colors.indigoAccent),
-  //Category(id: '16', title: 'الدّعاء للميّت في صّلاة الجنازة', color: Colors.indigoAccent),
 ];
 
 const Type_Death = [

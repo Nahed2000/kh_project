@@ -4,7 +4,7 @@ import 'package:kh_project/model/azkar_list.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:provider/provider.dart';
 
-import '../myazkar/my_azkar_list.dart';
+import 'myazkar/my_azkar_list.dart';
 
 class AzkaryScreen extends StatefulWidget {
   const AzkaryScreen({Key? key}) : super(key: key);

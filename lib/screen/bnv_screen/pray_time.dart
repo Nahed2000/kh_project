@@ -4,15 +4,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
-import '../component.dart';
-import '../provider/pray_time.dart';
+import '../../component.dart';
+import '../../provider/pray_time.dart';
 
 class PrayTime extends StatelessWidget {
   decidePray(pray) {
     if (pray == 'fajr') {
       return 'الفجر';
     } else if (pray == 'sunrise') {
-      return 'طلوع الشمس';
+      return 'شروق الشمس';
     } else if (pray == 'dhuhr') {
       return 'الظهر';
     } else if (pray == 'asr') {
@@ -201,18 +201,17 @@ class PrayTime extends StatelessWidget {
 
   Container buildContainerPray(screenWidth, title) {
     return Container(
-      color: co,
+      // color: co,
       width: screenWidth / 2.5,
       child: Center(
         child: Container(
-
           // padding: const EdgeInsets.only(right: 20),
           alignment: Alignment.center,
           child: FittedBox(
             child: Text(
               title,
               style: GoogleFonts.amiri(
-                  fontSize: 20,
+                  fontSize: 23,
                   color: Colors.white,
                   fontWeight: FontWeight.bold),
               // textAlign: TextAlign.right,

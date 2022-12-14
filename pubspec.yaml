@@ -31,7 +31,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   cupertino_icons: ^1.0.2
   google_fonts: ^3.0.1
   dependencies:
@@ -54,6 +53,8 @@ dependencies:
   workmanager: 0.5.0
   geolocator:
   adhan: ^2.0.0-nullsafety.1
+  flutter_qiblah: ^2.0.2
+  flutter_svg:
 
 
 flutter_icons:
