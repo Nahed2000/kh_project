@@ -15,7 +15,6 @@ import 'package:provider/provider.dart';
 
 import 'component.dart';
 import 'screen/name_of_allah.dart';
-import 'screen/quran/surah.dart';
 import 'storge/pref_controller.dart';
 
 void main() async {
@@ -23,6 +22,7 @@ void main() async {
   await DbController().initDatabase();
   await CacheHelper.init();
   getPosition();
+  getZikrStart();
   // initPray();
   MobileAds.instance.initialize();
   // bool? notificationActive = CacheHelper.getData(key: 'notificationActive');

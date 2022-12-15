@@ -58,6 +58,7 @@ class _HomeAppState extends State<HomeApp> {
         ? controller!.kBlack
         : controller!.kWhite;
     return ListView(
+
       children: [
         SizedBox(
           height: size.height * 0.58,
@@ -185,78 +186,87 @@ class _HomeAppState extends State<HomeApp> {
             ],
           ),
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CustomButton(
-              images: 'assets/image/sunrise.png',
-              title: 'ورد الصباح',
-              onPress: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => Zikr(title: 'أذكار الصباح'),
-                ),
-              ),
-            ),
-            CustomButton(
-              images: 'assets/image/night.png',
-              title: 'ورد المساء',
-              onPress: () => Navigator.push(
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomButton(
+                images: 'assets/image/sunrise.png',
+                title: 'ورد الصباح',
+                onPress: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Zikr(title: 'أذكار المساء'),
-                  )),
-            ),
-          ],
+                    builder: (context) => Zikr(title: 'أذكار الصباح'),
+                  ),
+                ),
+              ),
+              CustomButton(
+                images: 'assets/image/night.png',
+                title: 'ورد المساء',
+                onPress: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Zikr(title: 'أذكار المساء'),
+                    )),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: size.height * 0.02,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CustomButton(
-              images: 'assets/image/activ_zikr.png',
-              title: 'أذكاري',
-              onPress: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => AzkaryScreen()
-                ),
-              ),
-            ),
-            CustomButton(
-              images: 'assets/image/azkar_active.png',
-              title: 'الأذكار',
-              onPress: () => Navigator.push(
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomButton(
+                images: 'assets/image/activ_zikr.png',
+                title: 'أذكاري',
+                onPress: () => Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => AzkarScreen(),
-                  )),
-            ),
-          ],
+                    builder: (context) => AzkaryScreen()
+                  ),
+                ),
+              ),
+              CustomButton(
+                images: 'assets/image/azkar_active.png',
+                title: 'الأذكار',
+                onPress: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AzkarScreen(),
+                    )),
+              ),
+            ],
+          ),
         ),
         SizedBox(
           height: size.height * 0.02,
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-            CustomButton(
-              images: 'assets/image/calendar.png',
-              title: 'مواقيت الصلاة',
-              onPress: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => PrayTime(),
-                  )),
-            ),
-            CustomButton(
-              images: 'assets/image/tasbih.png',
-              title: 'تسبيح',
-              onPress: () => Navigator.pushNamed(context, '/tsbeh_screen'),
-            )
-          ],
+        Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              CustomButton(
+                images: 'assets/image/calendar.png',
+                title: 'مواقيت الصلاة',
+                onPress: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => PrayTime(),
+                    )),
+              ),
+              CustomButton(
+                images: 'assets/image/tasbih.png',
+                title: 'تسبيح',
+                onPress: () => Navigator.pushNamed(context, '/tsbeh_screen'),
+              )
+            ],
+          ),
         ),
         SizedBox(
           height: size.height * 0.02,

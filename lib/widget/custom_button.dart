@@ -29,7 +29,7 @@ class CustomButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
           backgroundColor: controller.kWhite,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8),side: BorderSide(color: Colors.grey)),
-          minimumSize: const Size(150, 50)
+          minimumSize: const Size(175, 75)
         ),
         label: Text(
           title,
