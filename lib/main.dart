@@ -21,9 +21,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await DbController().initDatabase();
   await CacheHelper.init();
-  getPosition();
-  getZikrStart();
-  // initPray();
+  await getPosition();
   MobileAds.instance.initialize();
   // bool? notificationActive = CacheHelper.getData(key: 'notificationActive');
 
@@ -43,12 +41,14 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<AzkaryProvider>(
             create: (context) => AzkaryProvider()),
-        ChangeNotifierProvider<AllSu>(
-            create: (context) => AllSu()),
+        ChangeNotifierProvider<AllSu>(create: (context) => AllSu()),
         ChangeNotifierProvider<AlhamedProvider>(
             create: (context) => AlhamedProvider()),
         ChangeNotifierProvider<ThemeProvider>(
-            create: (context) => ThemeProvider()..changeTheme()),
+            create: (context) => ThemeProvider(
+                isDarkMode:
+                    CacheHelper.sharedPreferences!.getBool('isDarkMode')??false)
+              ..changeTheme()),
         ChangeNotifierProvider<PrayerTi>(
           create: (context) => PrayerTi()
             ..getDay()

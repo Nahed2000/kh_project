@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kh_project/component.dart';
 import 'package:kh_project/provider/theme_provider.dart';
 import 'package:kh_project/screen/count_ziker.dart';
 import 'package:provider/provider.dart';
@@ -72,16 +73,12 @@ class _ZikrState extends State<Zikr> {
     double screenHeight = MediaQuery.of(context).size.height;
 
     var controller = Provider.of<ThemeProvider>(context, listen: false);
-    Color v = Provider.of<ThemeProvider>(context) == ThemeData.dark()
-        ? controller.kBlack
-        : controller.kWhite;
-
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
           backgroundColor: controller.kPrimary,
-          appBar: AppBar(
+            appBar: AppBar(
             leading: const Icon(
               Icons.abc,
               color: Colors.transparent,
@@ -114,21 +111,20 @@ class _ZikrState extends State<Zikr> {
             ),
           ),
           body: AnimatedList(
-            key: _listKey,
-            physics: const BouncingScrollPhysics(),
-            initialItemCount: zikr!.length,
-            itemBuilder: (context, int index, animation) {
-              return _buildItem(animation, controller, index, screenHeight,
-                  screenWidth, v, _listKey);
-            },
-          ),
+              key: _listKey,
+              physics: const BouncingScrollPhysics(),
+              initialItemCount: zikr!.length,
+              itemBuilder: (context, int index, animation) {
+                return _buildItem(animation, controller, index, screenHeight,
+                    screenWidth, _listKey);
+              }),
         ),
       ),
     );
   }
 
   Widget _buildItem(Animation<double> animation, controller, index,
-      screenHeight, screenWidth, v, key) {
+      screenHeight, screenWidth, key) {
     return ClipRRect(
       borderRadius: const BorderRadius.only(
         topLeft: Radius.circular(25),
@@ -136,7 +132,7 @@ class _ZikrState extends State<Zikr> {
       ),
       child: Container(
         decoration: BoxDecoration(
-          color: v,
+          color: zikr![index] != 0 ? controller.kWhite : Colors.grey.shade500,
           borderRadius: BorderRadius.circular(15),
         ),
         margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
@@ -148,18 +144,22 @@ class _ZikrState extends State<Zikr> {
             // if(zikr![index]==0){
             //   _removeItem(index);
             // }
-            if (zikr![index] == 0) {
-              _removeItem(index);
-            }else if (zikr![index] >= 1) {
+            // if (zikr![index] == 1) {
+            //   _removeItem(index);
+            if (zikr![index] >= 1) {
               setState(() {
                 zikr![index] = zikr![index] - 1;
+                countOfZiker++;
               });
             } else if (zikr![index] == 1) {
               setState(() {
                 countOfZiker++;
-                //zikr!.removeAt(index);
+                // zikr!.removeAt(index);
               });
             }
+            // else if (zikr![index] <=0){
+            //   _removeItem(zikr![index]);
+            // }
           },
           child: Column(
             children: [
@@ -227,7 +227,7 @@ class _ZikrState extends State<Zikr> {
                     flex: 1,
                     child: Container(
                       width: screenWidth / 5,
-                      // height: screenHeight / 16,
+                      height: screenHeight / 16,
                       margin: const EdgeInsets.symmetric(horizontal: 4),
                       padding: const EdgeInsets.symmetric(horizontal: 4),
                       decoration: BoxDecoration(
@@ -239,16 +239,30 @@ class _ZikrState extends State<Zikr> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           //Icon(Icons.repeat,color: ,),
-                          FittedBox(
-                              child: Text(
-                            'عدد التكرار',
-                            style: GoogleFonts.amiri(color: controller.kWhite),
-                          )),
-                          FittedBox(
-                              child: Text(
-                            zikr![index].toString(),
-                            style: GoogleFonts.amiri(color: controller.kWhite),
-                          )),
+                          Visibility(
+                            visible: zikr![index] != 0,
+                            replacement: FittedBox(
+                                child: Text(
+                              'تم',
+                              style:
+                                  GoogleFonts.amiri(color: controller.kWhite),
+                            )),
+                            child: FittedBox(
+                                child: Text(
+                              'عدد التكرار',
+                              style:
+                                  GoogleFonts.amiri(color: controller.kWhite),
+                            )),
+                          ),
+                          Visibility(
+                            visible: zikr![index] != 0,
+                            child: FittedBox(
+                                child: Text(
+                              zikr![index].toString(),
+                              style:
+                                  GoogleFonts.amiri(color: controller.kWhite),
+                            )),
+                          ),
                         ],
                       ),
                     ),

@@ -111,7 +111,7 @@ class _HomeAppState extends State<HomeApp> {
                                 PrayTime().buildContainerPray(
                                     screenWidth,
                                     PrayTime().decidePray(
-                                        next.toString().split('.')[1])),
+                                        next.toString().split('.')[1]),controller),
                                 SizedBox(height: size.height * 0.01),
                                 PrayTime().buildContainerPray(
                                     screenWidth,
@@ -119,7 +119,7 @@ class _HomeAppState extends State<HomeApp> {
                                         ? '- - - - - - - - - '
                                         : DateFormat.jm()
                                             .format(countdown)
-                                            .toString()),
+                                            .toString(),controller),
                               ],
                             ),
                           ),

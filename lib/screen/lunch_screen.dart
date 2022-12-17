@@ -15,11 +15,9 @@ class _LunchScreenState extends State<LunchScreen> {
   @override
   void initState() {
     // TODO: implement initState
-
-
     Workmanager().initialize(callbackDispatcher, isInDebugMode: false);
     getZikrStart();
-    Future.delayed(const Duration(seconds: 2), () {
+    Future.delayed(const Duration(milliseconds: 3500), () {
       Navigator.pushReplacementNamed(context, '/home_screen');
     });
     super.initState();
@@ -27,6 +25,7 @@ class _LunchScreenState extends State<LunchScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       body: Container(
         width: double.infinity,

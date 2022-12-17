@@ -6,6 +6,7 @@ import 'package:provider/provider.dart';
 
 import '../../component.dart';
 import '../../provider/pray_time.dart';
+import '../../provider/theme_provider.dart';
 
 class PrayTime extends StatelessWidget {
   decidePray(pray) {
@@ -33,7 +34,7 @@ class PrayTime extends StatelessWidget {
     var theDay = Provider.of<PrayerTi>(context).myDay;
 
     double screenWidth = MediaQuery.of(context).size.width;
-
+    var controller = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: co,
@@ -43,7 +44,7 @@ class PrayTime extends StatelessWidget {
             style: GoogleFonts.amiri(
               fontSize: 16,
               fontWeight: FontWeight.w500,
-              color: Colors.white,
+              color: controller.kWhite,
             ),
           ),
           backgroundColor: co,
@@ -60,14 +61,14 @@ class PrayTime extends StatelessWidget {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      buildContainerPray(screenWidth, theDay),
+                      buildContainerPray(screenWidth, theDay,controller),
                       buildContainerPray(
-                          screenWidth, formatter.format(date).toString()),
+                          screenWidth, formatter.format(date).toString(),controller),
                     ],
                   ),
-                  const Divider(
+                   Divider(
                     thickness: 1,
-                    color: Colors.white,
+                    color: controller.kWhite,
                   ),
                 ],
               ),
@@ -77,14 +78,14 @@ class PrayTime extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  buildContainerPray(screenWidth, 'الصلاة القادمة'),
+                  buildContainerPray(screenWidth, 'الصلاة القادمة',controller),
                   buildContainerPray(
-                      screenWidth, decidePray(next.toString().split('.')[1])),
+                      screenWidth, decidePray(next.toString().split('.')[1]),controller),
                 ],
               ),
             ),
-            const Divider(
-              color: Colors.white,
+             Divider(
+              color: controller.kWhite,
               thickness: 1,
             ),
             Container(
@@ -92,20 +93,20 @@ class PrayTime extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  buildContainerPray(screenWidth, 'موعد الصلاة القادمة'),
+                  buildContainerPray(screenWidth, 'موعد الصلاة القادمة',controller),
                   buildContainerPray(
                       screenWidth,
                       countdown == null
                           ? '_____'
-                          : DateFormat.jm().format(countdown).toString()),
+                          : DateFormat.jm().format(countdown).toString(),controller),
                 ],
               ),
             ),
             Expanded(
               child: Container(
                 alignment: Alignment.centerRight,
-                decoration: const BoxDecoration(
-                  color: Colors.white,
+                decoration:  BoxDecoration(
+                  color: controller.kWhite,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(15),
                       topRight: Radius.circular(
@@ -199,8 +200,8 @@ class PrayTime extends StatelessWidget {
     );
   }
 
-  Container buildContainerPray(screenWidth, title) {
-    return Container(
+  Container buildContainerPray(screenWidth, title,controller) {
+     return Container(
       // color: co,
       width: screenWidth / 2.5,
       child: Center(
@@ -212,7 +213,7 @@ class PrayTime extends StatelessWidget {
               title,
               style: GoogleFonts.amiri(
                   fontSize: 23,
-                  color: Colors.white,
+                  color: controller.kWhite,
                   fontWeight: FontWeight.bold),
               // textAlign: TextAlign.right,
             ),

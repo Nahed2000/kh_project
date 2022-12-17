@@ -129,7 +129,7 @@ class PrayerTi with ChangeNotifier {
   Color? WHITE_COLOR;
   Color? Black_COLOR;
 
-
+/*
   void changeMode({bool? fromShared}) {
     if (fromShared != null) {
       isDark = fromShared;
@@ -150,6 +150,8 @@ class PrayerTi with ChangeNotifier {
       });
     }
   }
+ */
+
 
 
   bool notificationActive = false;

@@ -10,6 +10,7 @@ import 'package:workmanager/workmanager.dart';
 
 import '../component.dart';
 import '../model/bnb_model.dart';
+import '../storge/pref_controller.dart';
 import '../widget/image_icon.dart';
 import 'bnv_screen/home_app.dart';
 import 'bnv_screen/qiblah.dart';
@@ -111,6 +112,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             : Icons.sunny;
                       });
                       controller.changeTheme();
+                      print('****************');
+                      print(CacheHelper.sharedPreferences!.getBool('isDarkMode'));
+                      print('****************');
                     },
                     icon: Icon(iconMode, color: controller.kWhite))
               ],
@@ -138,15 +142,15 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
       bottomNavigationBar: Container(
-        clipBehavior: Clip.antiAlias,
+        // clipBehavior: Clip.antiAlias,
         decoration: BoxDecoration(
           color: co,
           borderRadius: const BorderRadius.only(
             topRight: Radius.circular(20),
             topLeft: Radius.circular(20),
           ),
-          boxShadow: [
-            BoxShadow(color: controller.kBlack, spreadRadius: 1, blurRadius: 1)
+          boxShadow: const [
+            BoxShadow(color: Colors.grey, spreadRadius: 1, blurRadius: 0)
           ],
         ),
         child: BottomNavigationBar(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:quran/quran.dart';
 import '../../component.dart';
 import '../../provider/All_surah.dart';
 import '../../provider/theme_provider.dart';
@@ -14,9 +15,21 @@ class AyatSurah extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String basmla = Provider.of<AllSu>(context).basmla;
+
+
+    String getBasmla(){
+      if(index != 1 && index != 9){
+        return 'بسم الله الرحمن الرحيم ';
+      }
+      return '' ;
+    }
+    // String basmla = Provider.of<AllSu>(context).basmla;
+    String basmla = getBasmla();
     String surah = Provider.of<AllSu>(context).getAllVerses(index);
     var controller = Provider.of<ThemeProvider>(context);
+    print('************************************');
+    print(basmla);
+    print('************************************');
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
@@ -37,22 +50,17 @@ class AyatSurah extends StatelessWidget {
           ),
           body: Column(
             children: [
-              if (index != 1 && index != 9)
-                Column(
-                  children: [
-                    const SizedBox(height: 10,),
-                    Text(
-                      basmla,
-                      style: GoogleFonts.cairo(
-                        fontSize: 20,
-                        color: controller.kWhite,
-                        fontWeight: FontWeight.bold
-                      ),
-                    ),
-                  ],
+              const SizedBox(height: 10,),
+                Text(
+                  basmla,
+                  style: GoogleFonts.amiri(
+                    fontSize: 20,
+                    color: controller.kWhite,
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
               const SizedBox(
-                height: 15,
+                height: 15
               ),
               Expanded(
                 child: Container(
@@ -88,9 +96,10 @@ class AyatSurah extends StatelessWidget {
                               fontSize: 19,
                               // letterSpacing: 1.7,
                               wordSpacing: 1.7,
+
                             ),
                             textDirection: TextDirection.rtl,
-                            textAlign: TextAlign.start,
+                            textAlign: TextAlign.justify,
                             textScaleFactor: 1.15,
                           ),
                         ),
