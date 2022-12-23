@@ -28,10 +28,15 @@ class _TsbehScreenState extends State<TsbehScreen> {
   Widget build(BuildContext context) {
     var controller = Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
-      backgroundColor: controller.kPrimary,
+      backgroundColor: controller.kWhite,
       appBar: AppBar(
+        title: Text(
+          'السبحة الاكترونية',
+          style: GoogleFonts.amiri(
+               color: controller.kBlack),
+        ),
         elevation: 2,
-        backgroundColor: controller.kPrimary,
+        backgroundColor: controller.kWhite,
         leading: const BackButton(),
         actions: [
           IconButton(
@@ -45,7 +50,7 @@ class _TsbehScreenState extends State<TsbehScreen> {
                   : Icon(Icons.volume_mute))
         ],
         iconTheme: IconThemeData(
-          color: controller.kWhite,
+          color: controller.kBlack,
         ),
       ),
       body: Consumer<AzkaryProvider>(
@@ -58,7 +63,7 @@ class _TsbehScreenState extends State<TsbehScreen> {
                   'سبح اسم ربك الأعلى ',
                   style: GoogleFonts.amiri(
                     fontSize: 25,
-                    color: controller.kWhite,
+                    color: controller.kBlack,
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.03),
@@ -67,7 +72,7 @@ class _TsbehScreenState extends State<TsbehScreen> {
                     '(سبحان الله | الحمدلله | الله أكبر | لا اله ال الله)',
                     style: GoogleFonts.amiri(
                       fontSize: 22,
-                      color: controller.kWhite,
+                      color: controller.kBlack,
                     ),
                   ),
                 ),
@@ -78,14 +83,14 @@ class _TsbehScreenState extends State<TsbehScreen> {
                   counterOfTasbeh.toString(),
                   style: TextStyle(
                       fontSize: 50,
-                      color: controller.kWhite,
+                      color: controller.kBlack,
                       fontWeight: FontWeight.bold),
                 ),
                 Text(
                   'عدد التسبيح ',
                   style: TextStyle(
                     fontSize: 40,
-                    color: controller.kWhite,
+                    color: controller.kBlack,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -98,7 +103,7 @@ class _TsbehScreenState extends State<TsbehScreen> {
                     alignment: Alignment.topRight,
                     child: CircleAvatar(
                       radius: 28,
-                      backgroundColor: controller.kWhite,
+                      backgroundColor: controller.kBlack,
                       child: IconButton(
                           onPressed: () {
                             setState(() {
@@ -107,7 +112,7 @@ class _TsbehScreenState extends State<TsbehScreen> {
                           },
                           icon: Icon(
                             Icons.restart_alt,
-                            color: controller.kPrimary,
+                            color: controller.kWhite,
                             size: 30,
                           )),
                     ),
@@ -125,12 +130,12 @@ class _TsbehScreenState extends State<TsbehScreen> {
                   },
                   child: CircleAvatar(
                     radius: 80,
-                    backgroundColor: controller.kWhite,
+                    backgroundColor: controller.kBlack,
                     child: Center(
                         child: Icon(
                       Icons.add,
-                      color: controller.kPrimary,
-                      size: 30,
+                      color: controller.kWhite,
+                      size: 64,
                     )),
                   ),
                 ),
@@ -139,11 +144,11 @@ class _TsbehScreenState extends State<TsbehScreen> {
                   padding: EdgeInsets.all(20),
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
-                      border: Border.all(color: controller.kWhite)),
+                      border: Border.all(color: controller.kBlack)),
                   child: Text(
                     'مجموع التسبيحات ${value.sumNum}',
                     style: GoogleFonts.amiri(
-                        fontSize: 25, color: controller.kWhite),
+                        fontSize: 25, color: controller.kBlack),
                   ),
                 )
               ],

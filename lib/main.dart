@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<ThemeProvider>(
             create: (context) => ThemeProvider(
                 isDarkMode:
-                    CacheHelper.sharedPreferences!.getBool('isDarkMode')??false)
+                    CacheHelper.sharedPreferences!.getBool('isDarkMode')??true)
               ..changeTheme()),
         ChangeNotifierProvider<PrayerTi>(
           create: (context) => PrayerTi()

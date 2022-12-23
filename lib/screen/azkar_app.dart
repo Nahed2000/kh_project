@@ -24,9 +24,9 @@ class _AzkarScreenState extends State<AzkarScreen> {
     return Scaffold(
       backgroundColor: controller.kWhite,
       appBar: AppBar(
-        backgroundColor:controller.kPrimary,
-        title: Text('الأذكار',style: GoogleFonts.amiri(color: controller.kWhite),),
-        iconTheme: IconThemeData(color: controller.kWhite),
+        backgroundColor:controller.kWhite,
+        title: Text('الأذكار',style: GoogleFonts.amiri(color: controller.kBlack),),
+        iconTheme: IconThemeData(color: controller.kBlack),
       ),
       body:GridView.builder(
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(

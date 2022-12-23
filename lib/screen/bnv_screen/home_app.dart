@@ -96,7 +96,7 @@ class _HomeAppState extends State<HomeApp> {
                 // right: 20,
                 // left: 30,
                 child: Container(
-                  height: size.height * 0.125,
+                  height: size.height * 0.15,
                   width: screenWidth,
                   child: prayerTimes == null
                       ? const CircularProgressIndicator(color: Colors.teal)

@@ -5,8 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_qiblah/flutter_qiblah.dart';
 
 import 'package:geolocator/geolocator.dart';
+import 'package:provider/provider.dart';
 
 import '../../component.dart';
+import '../../provider/theme_provider.dart';
 import '../../widget/loading_error_indicator.dart';
 import '../../widget/loading_indicator.dart';
 import '../../widget/qiplah_compass.dart';
@@ -32,23 +34,25 @@ class _QiblahState extends State<Qiblah> {
 
   @override
   Widget build(BuildContext context) {
+    var controller = Provider.of<ThemeProvider>(context);
+
     return SafeArea(
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor: co,
-          appBar: AppBar(
-            title: Text(
-              'قبلة الصلاة',
-              style: TextStyle(
-                fontSize: 27,
-             //   fontWeight: FontWeight.bold
-              ),
-            ),
-            centerTitle: true,
-            backgroundColor: co,
-            elevation: 0,
-          ),
+          backgroundColor: controller.kWhite,
+          // appBar: AppBar(
+          //   title: Text(
+          //     'قبلة الصلاة',
+          //     style: TextStyle(
+          //       fontSize: 27,
+          //    //   fontWeight: FontWeight.bold
+          //     ),
+          //   ),
+          //   centerTitle: true,
+          //   backgroundColor: co,
+          //   elevation: 0,
+          // ),
           body: Container(
             alignment: Alignment.center,
             padding: const EdgeInsets.all(50.0),

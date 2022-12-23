@@ -27,36 +27,45 @@ class _LunchScreenState extends State<LunchScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
         height: double.infinity,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [
-              Colors.teal.shade100,
-              Colors.teal.shade600,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+        decoration: const BoxDecoration(
+          // gradient: LinearGradient(
+          //   colors: [
+          //     Colors.teal.shade100,
+          //     Colors.teal.shade600,
+          //   ],
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          // )
+          // image: DecorationImage(image: AssetImage('assets/image/lunch.jpg'),)
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const CircleAvatar(
-              // backgroundColor: Colors.white,
-              radius: 70,
-              backgroundImage: AssetImage('assets/image/iconluncer.jpg'),
+            const Spacer(flex: 2),
+            const Image(image: AssetImage('assets/image/lunch.jpg')),
+            CircleAvatar(
+              radius: 80,
+              backgroundColor: Colors.grey.shade100,
+              child: const CircleAvatar(
+                // backgroundColor: Colors.blueGrey,
+                radius: 79,
+                backgroundImage: AssetImage('assets/image/iconluncer.jpg'),
+              ),
             ),
             SizedBox(height: MediaQuery.of(context).size.height * 0.02),
             Text(
               'سبح اسم ربك الأعلى ',
               style: GoogleFonts.amiri(
-                color: Colors.white,
+                color: Colors.blueGrey,
                 fontSize: 30,
                 fontWeight: FontWeight.bold,
               ),
-            )
+            ),
+            const Spacer(flex: 3)
           ],
         ),
       ),

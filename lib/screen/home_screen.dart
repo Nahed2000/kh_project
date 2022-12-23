@@ -101,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: controller.kWhite,
       appBar: currentIndex != 1
           ? AppBar(
-              backgroundColor: controller.kPrimary,
+              backgroundColor: controller.kWhite,
               // centerTitle: currentIndex == 3 ? false : true,
               actions: [
                 IconButton(
@@ -116,14 +116,14 @@ class _HomeScreenState extends State<HomeScreen> {
                       print(CacheHelper.sharedPreferences!.getBool('isDarkMode'));
                       print('****************');
                     },
-                    icon: Icon(iconMode, color: controller.kWhite))
+                    icon: Icon(iconMode, color: controller.kBlack))
               ],
-              actionsIconTheme: IconThemeData(color: controller.kWhite),
+              actionsIconTheme: IconThemeData(color: controller.kBlack),
               elevation: 0,
               title: Text(
                 listScreen[currentIndex].title,
                 style:
-                    GoogleFonts.amiri(fontSize: 23, color: controller.kWhite),
+                    GoogleFonts.amiri(fontSize: 20, color: controller.kBlack),
               ),
             )
           : null,

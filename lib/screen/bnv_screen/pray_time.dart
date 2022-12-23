@@ -37,17 +37,17 @@ class PrayTime extends StatelessWidget {
     var controller = Provider.of<ThemeProvider>(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: co,
+        backgroundColor:controller.kWhite ,
         appBar: AppBar(
           title: Text(
             'أوقات الصلاة حسب موقعك الجغرافي',
             style: GoogleFonts.amiri(
-              fontSize: 16,
+              fontSize: 20,
               fontWeight: FontWeight.w500,
-              color: controller.kWhite,
+              color: controller.kBlack,
             ),
           ),
-          backgroundColor: co,
+          backgroundColor: controller.kWhite,
           centerTitle: true,
           elevation: 0,
         ),
@@ -68,7 +68,7 @@ class PrayTime extends StatelessWidget {
                   ),
                    Divider(
                     thickness: 1,
-                    color: controller.kWhite,
+                    color: controller.kBlack,
                   ),
                 ],
               ),
@@ -85,7 +85,7 @@ class PrayTime extends StatelessWidget {
               ),
             ),
              Divider(
-              color: controller.kWhite,
+              color: controller.kBlack,
               thickness: 1,
             ),
             Container(
@@ -101,6 +101,10 @@ class PrayTime extends StatelessWidget {
                           : DateFormat.jm().format(countdown).toString(),controller),
                 ],
               ),
+            ),
+            Divider(
+              color: controller.kBlack,
+              thickness: 1,
             ),
             Expanded(
               child: Container(
@@ -119,21 +123,22 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('صلاة الفجر'),
-                          buildContainerTime(screenWidth, prayerTimes.fajr),
+                          buildContainerText('صلاة الفجر',controller),
+                          buildContainerTime(screenWidth, prayerTimes.fajr,controller),
                         ],
                       ),
                     ),
                     //   buildContainer(prayerTimes.fajr,'صلاة الفجر'),
-                    const Divider(
+                     Divider(
                       thickness: 1,
+                      color: controller.kBlack,
                     ),
                     Expanded(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('شروق الشمس'),
-                          buildContainerTime(screenWidth, prayerTimes.sunrise),
+                          buildContainerText('شروق الشمس',controller),
+                          buildContainerTime(screenWidth, prayerTimes.sunrise,controller),
                         ],
                       ),
                     ),
@@ -145,8 +150,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('صلاة الظهر'),
-                          buildContainerTime(screenWidth, prayerTimes.dhuhr),
+                          buildContainerText('صلاة الظهر',controller),
+                          buildContainerTime(screenWidth, prayerTimes.dhuhr,controller),
                         ],
                       ),
                     ),
@@ -158,8 +163,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('صلاة العصر'),
-                          buildContainerTime(screenWidth, prayerTimes.asr),
+                          buildContainerText('صلاة العصر',controller),
+                          buildContainerTime(screenWidth, prayerTimes.asr,controller),
                         ],
                       ),
                     ),
@@ -171,8 +176,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('صلاة المغرب'),
-                          buildContainerTime(screenWidth, prayerTimes.maghrib),
+                          buildContainerText('صلاة المغرب',controller),
+                          buildContainerTime(screenWidth, prayerTimes.maghrib,controller),
                         ],
                       ),
                     ),
@@ -184,8 +189,8 @@ class PrayTime extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
-                          buildContainerText('صلاة العشاء'),
-                          buildContainerTime(screenWidth, prayerTimes.isha),
+                          buildContainerText('صلاة العشاء',controller),
+                          buildContainerTime(screenWidth, prayerTimes.isha,controller),
                         ],
                       ),
                     ),
@@ -203,7 +208,7 @@ class PrayTime extends StatelessWidget {
   Container buildContainerPray(screenWidth, title,controller) {
      return Container(
       // color: co,
-      width: screenWidth / 2.5,
+      width: screenWidth / 2.4,
       child: Center(
         child: Container(
           // padding: const EdgeInsets.only(right: 20),
@@ -212,8 +217,8 @@ class PrayTime extends StatelessWidget {
             child: Text(
               title,
               style: GoogleFonts.amiri(
-                  fontSize: 23,
-                  color: controller.kWhite,
+                  fontSize: 24,
+                  color: controller.kBlack,
                   fontWeight: FontWeight.bold),
               // textAlign: TextAlign.right,
             ),
@@ -223,7 +228,7 @@ class PrayTime extends StatelessWidget {
     );
   }
 
-  FittedBox buildContainerTime(screenWidth, time) {
+  FittedBox buildContainerTime(screenWidth, time,controller) {
     return FittedBox(
       child: FittedBox(
         child: Row(
@@ -237,7 +242,7 @@ class PrayTime extends StatelessWidget {
               child: Text(
                 DateFormat.jm().format(time).toString(),
                 style: GoogleFonts.amiri(
-                  color: co,
+                  color: controller.kBlack,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                 ),
@@ -251,14 +256,14 @@ class PrayTime extends StatelessWidget {
     );
   }
 
-  Container buildContainerText(pray) {
+  Container buildContainerText(pray,controller) {
     return Container(
       alignment: Alignment.centerRight,
       child: FittedBox(
         child: Text(
           pray,
           style: GoogleFonts.amiri(
-            color: co,
+            color: controller.kBlack,
             fontSize: 18,
             fontWeight: FontWeight.bold,
           ),

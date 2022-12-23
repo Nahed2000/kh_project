@@ -34,17 +34,18 @@ class AyatSurah extends StatelessWidget {
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
-          backgroundColor:  co,
+          backgroundColor: controller.kWhite,
           appBar: AppBar(
+            iconTheme: IconThemeData(color: controller.kBlack),
             title: Text(
               title,
               style: GoogleFonts.cairo(
                 fontSize: 18,
                 fontWeight: FontWeight.bold,
-                color: controller.kWhite,
+                color: controller.kBlack,
                 ),
             ),
-            backgroundColor: co,
+            backgroundColor:controller.kWhite,
             centerTitle: true,
             elevation: 0,
           ),
@@ -55,8 +56,9 @@ class AyatSurah extends StatelessWidget {
                   basmla,
                   style: GoogleFonts.amiri(
                     fontSize: 20,
-                    color: controller.kWhite,
-                    fontWeight: FontWeight.bold
+                    color: controller.kBlack,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 1
                   ),
                 ),
               const SizedBox(
@@ -68,7 +70,7 @@ class AyatSurah extends StatelessWidget {
                   width: double.infinity,
                   height: double.infinity,
                   // color: Colors.grey[200],
-                  padding: const EdgeInsets.all(3),
+                  padding: const EdgeInsets.all(8),
                   child: Center(
                     child: SingleChildScrollView(
                       physics: const BouncingScrollPhysics(),
@@ -79,8 +81,9 @@ class AyatSurah extends StatelessWidget {
                           color: controller.kWhite,
                           boxShadow: [
                             BoxShadow(
-                              color: co,
-                              blurRadius: 3,
+                              color: controller.kBlack,
+                              blurRadius: 1,
+                              spreadRadius: 1,
                               offset:const Offset(0.3, 0.5), // changes position of shadow
                             ),
                           ],
@@ -94,9 +97,8 @@ class AyatSurah extends StatelessWidget {
                             surah,
                             style:  GoogleFonts.amiri(
                               fontSize: 19,
-                              // letterSpacing: 1.7,
-                              wordSpacing: 1.7,
-
+                              letterSpacing: 0.3,
+                              wordSpacing: 1,
                             ),
                             textDirection: TextDirection.rtl,
                             textAlign: TextAlign.justify,

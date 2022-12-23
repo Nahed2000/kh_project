@@ -61,12 +61,12 @@ class _AllSurahState extends State<AllSurah> {
               style: GoogleFonts.cairo(
                 fontSize: 25,
                 fontWeight: FontWeight.w500,
-                color: controller.kWhite,
+                color: controller.kBlack,
               ),
             ),
-            backgroundColor: co,
+            backgroundColor: controller.kWhite,
             centerTitle: true,
-            elevation: 0,
+            elevation: 2,
           ),
           body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0,vertical: 10),
@@ -159,7 +159,7 @@ class _AllSurahState extends State<AllSurah> {
                                             style: GoogleFonts.cairo(
                                               fontWeight: FontWeight.bold,
                                               // fontSize: 12,
-                                              color: co,
+                                              color: controller.kBlack,
                                             ),
                                             textAlign: TextAlign.right,
                                           ),
@@ -174,14 +174,14 @@ class _AllSurahState extends State<AllSurah> {
                                 Expanded(
                                   flex: 2,
                                   child: CircleAvatar(
-                                    backgroundColor: co,
+                                    backgroundColor: controller.kBlack,
                                     radius: 18,
                                     child: Center(
                                       child: FittedBox(
                                         child: Text(
                                           '${index + 1}',
                                           style: GoogleFonts.cairo(
-                                              color: Colors.white,
+                                              color: controller.kWhite,
                                               fontWeight: FontWeight.bold,
                                               fontSize: 14),
                                         ),

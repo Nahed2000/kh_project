@@ -23,10 +23,10 @@ class ShareAppScreen extends StatelessWidget {
               child: Container(
                 padding:
                     const EdgeInsets.symmetric(vertical: 80, horizontal: 20),
-                color: controller.kPrimary,
+                color: Colors.blueGrey.shade300,
                 child: Text(
                   'شارك التطبيق لمن تعرفه الأن ليصبح "صدقة جارية " خاصة بك ! بحيث يتناقله\n ألاف الناس من بعدك',
-                  style: GoogleFonts.amiri(fontSize: 23, color: controller.kWhite),
+                  style: GoogleFonts.amiri(fontSize: 23, color: controller.kBlack,fontWeight: FontWeight.bold),
                   textAlign: TextAlign.center,
                 ),
               ),

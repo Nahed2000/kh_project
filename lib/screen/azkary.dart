@@ -30,7 +30,9 @@ class _AzkaryScreenState extends State<AzkaryScreen>
     return Scaffold(
       backgroundColor: controller.kWhite,
       appBar: AppBar(
-        backgroundColor: controller.kPrimary,
+        title: Text('أذكاري الخاصة',style: GoogleFonts.amiri(fontSize: 18,color: controller.kBlack),),
+        iconTheme: IconThemeData(color: controller.kBlack),
+        backgroundColor: controller.kWhite,
         bottom: TabBar(
           onTap: (int value) {
             setState(() {
@@ -45,8 +47,8 @@ class _AzkaryScreenState extends State<AzkaryScreen>
           // unselectedLabelColor: controller.Black45,
           controller: _tabController,
           tabs:  [
-            Tab(child: Text('أذكار التطبيق ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kWhite),),),
-            Tab(child: Text('أذكاري ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kWhite),),),
+            Tab(child: Text('أذكار التطبيق ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kBlack),),),
+            Tab(child: Text('أذكاري ',style: GoogleFonts.amiri(fontSize: 18,color: controller.kBlack),),),
           ],
         ),
       ),

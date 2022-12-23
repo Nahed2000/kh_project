@@ -36,10 +36,10 @@ class _MyAzkarListState extends State<MyAzkarList> {
           'أذكاري الخاصة ',
           style: GoogleFonts.amiri(
             fontSize: 18,
-            color: controller.kWhite,
+            color: controller.kBlack,
           ),
         ),
-        actionsIconTheme: IconThemeData(color: controller.kWhite),
+        iconTheme: IconThemeData(color: controller.kBlack),
         actions: [
           IconButton(
               onPressed: () {

@@ -1,4 +1,3 @@
-
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -7,9 +6,11 @@ import 'package:flutter_svg/svg.dart';
 
 import 'loading_indicator.dart';
 
-
 class QiblahCompassWidget extends StatelessWidget {
-  final _compassSvg = SvgPicture.asset('assets/image/compass.svg');
+  final _compassSvg = SvgPicture.asset(
+    'assets/image/compass.svg',
+     color: Colors.yellow.shade700,
+  );
   final _needleSvg = SvgPicture.asset(
     'assets/image/needle.svg',
     fit: BoxFit.contain,
@@ -17,7 +18,7 @@ class QiblahCompassWidget extends StatelessWidget {
     alignment: Alignment.center,
   );
 
-   QiblahCompassWidget({Key? key}) : super(key: key);
+  QiblahCompassWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +30,6 @@ class QiblahCompassWidget extends StatelessWidget {
         }
 
         final qiblahDirection = snapshot.data!;
-
         return Stack(
           alignment: Alignment.center,
           children: <Widget>[
