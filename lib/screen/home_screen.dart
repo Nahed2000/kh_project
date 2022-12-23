@@ -130,15 +130,16 @@ class _HomeScreenState extends State<HomeScreen> {
       body: Stack(
         children: [
           listScreen[currentIndex].body,
-          /*isLoaded
+          isLoaded
               ? Align(
                   alignment: Alignment.bottomCenter,
                   child: SizedBox(
                     height: 50,
+                    width: double.infinity,
                     child: AdWidget(ad: bannerAd!),
                   ),
                 )
-              : const SizedBox(),*/
+              : const SizedBox(),
         ],
       ),
       bottomNavigationBar: Container(
